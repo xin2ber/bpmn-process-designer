@@ -6,9 +6,8 @@ import ElementUI from "element-ui";
 Vue.use(ElementUI);
 import "../package/theme/element-variables.scss";
 
-import { vuePlugin } from "@/highlight";
-import "highlight.js/styles/atom-one-dark-reasonable.css";
-Vue.use(vuePlugin);
+import VueClipboard from "vue-clipboard2";
+Vue.use(VueClipboard);
 
 import MyPD from "../package/index.js";
 Vue.use(MyPD);

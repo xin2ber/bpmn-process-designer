@@ -81,7 +81,7 @@ export default {
         simulation: true,
         labelEditing: false,
         labelVisible: false,
-        prefix: "camunda",
+        prefix: "flowable",
         headerButtonSize: "mini",
         additionalModel: [CustomContentPadProvider, CustomPaletteProvider]
       },
@@ -189,5 +189,9 @@ body * {
     background-color: rgba(159, 159, 159, 0.5);
     -webkit-border-radius: 4px;
   }
+}
+
+.bjs-powered-by {
+  display: none;
 }
 </style>
