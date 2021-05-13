@@ -10,14 +10,14 @@
         </el-select>
       </el-form-item>
       <template v-if="loopCharacteristics === 'ParallelMultiInstance' || loopCharacteristics === 'SequentialMultiInstance'">
-        <el-form-item label="循环基数" key="loopCardinality">
-          <el-input v-model="loopInstanceForm.loopCardinality" clearable @change="updateLoopCardinality" />
-        </el-form-item>
         <el-form-item label="集合" key="collection">
           <el-input v-model="loopInstanceForm.collection" clearable @change="updateLoopBase" />
         </el-form-item>
         <el-form-item label="元素变量" key="elementVariable">
           <el-input v-model="loopInstanceForm.elementVariable" clearable @change="updateLoopBase" />
+        </el-form-item>
+        <el-form-item label="循环基数" key="loopCardinality">
+          <el-input v-model="loopInstanceForm.loopCardinality" clearable @change="updateLoopCardinality" />
         </el-form-item>
         <el-form-item label="完成条件" key="completionCondition">
           <el-input v-model="loopInstanceForm.completionCondition" clearable @change="updateLoopCondition" />
@@ -59,14 +59,8 @@ export default {
   },
   methods: {
     getElementLoop(businessObject) {
-      console.log(1212121221);
       if (!businessObject.loopCharacteristics) {
         this.loopCharacteristics = "Null";
-        this.loopInstanceForm = {};
-        return;
-      }
-      if (businessObject.loopCharacteristics.$type === "bpmn:StandardLoopCharacteristics") {
-        this.loopCharacteristics = "StandardLoop";
         this.loopInstanceForm = {};
         return;
       }

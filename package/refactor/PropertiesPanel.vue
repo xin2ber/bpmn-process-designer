@@ -21,7 +21,11 @@
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>任务</div>
         <element-task :id="elementId" :type="elementType" />
       </el-collapse-item>
-      <el-collapse-item name="multiInstance" v-if="elementType.indexOf('Task') !== -1" key="multiInstance">
+      <el-collapse-item name="candidateUsers" v-if="elementType === 'UserTask'" key="candidateUsers">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i>节点人员</div>
+        <candidate-users :id="elementId" :type="elementType" />
+      </el-collapse-item>
+      <el-collapse-item name="multiInstance" v-if="elementType.indexOf('Task') !== -1 || elementType === 'CallActivity'" key="multiInstance">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-help"></i>多实例</div>
         <element-multi-instance :business-object="elementBusinessObject" :type="elementType" />
       </el-collapse-item>
@@ -55,6 +59,8 @@ import ElementListeners from "./listeners/ElementListeners";
 import ElementProperties from "./properties/ElementProperties";
 import ElementForm from "./form/ElementForm";
 import UserTaskListeners from "./listeners/UserTaskListeners";
+import CandidateUsers from "./candidateUsers/CandidateUsers";
+
 /**
  * 侧边栏
  * @Author MiyueFE
@@ -73,7 +79,8 @@ export default {
     ElementMultiInstance,
     ElementTask,
     ElementOtherConfig,
-    ElementBaseInfo
+    ElementBaseInfo,
+    CandidateUsers
   },
   componentName: "MyPropertiesPanel",
   props: {

@@ -18,6 +18,7 @@ const cdn = {
 
 module.exports = {
   publicPath: IS_PROD ? "././" : "/", // 打包相对路径
+  outputDir: 'D:/workspace/xte/xte-demo/xte-fastdev-flowable/src/main/resources/static/scripts/flow/model',
   productionSourceMap: false,
   devServer: {
     port: 8100
