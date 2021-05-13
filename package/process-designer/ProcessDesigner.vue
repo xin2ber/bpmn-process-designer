@@ -4,62 +4,62 @@
       <slot name="control-header"></slot>
       <template v-if="!$slots['control-header']">
         <div style="display: flex; padding: 10px 0px; justify-content: space-between;">
-        <div style="margin-left: 10px; display:inline-block;">
-        <el-button-group key="scale-control">
-          <el-tooltip effect="light" content="加载xml" placement="bottom">
-            <el-button :size="headerButtonSize" icon="el-icon-folder-opened" @click="$refs.refFile.click()" />
-          </el-tooltip>
-          <el-tooltip effect="light" content="新建">
-            <el-button :size="headerButtonSize" icon="el-icon-refresh" @click="processRestart" />
-          </el-tooltip>
-          <el-tooltip effect="light" content="自适应屏幕">
-            <el-button :size="headerButtonSize" icon="el-icon-rank" @click="processReZoom()" />
-          </el-tooltip>
-          <el-tooltip effect="light" content="缩小视图">
-            <el-button :size="headerButtonSize" :disabled="defaultZoom < 0.2" icon="el-icon-zoom-out" @click="processZoomOut()" />
-          </el-tooltip>
-          <el-button :size="headerButtonSize">{{ Math.floor(this.defaultZoom * 10 * 10) + "%" }}</el-button>
-          <el-tooltip effect="light" content="放大视图">
-            <el-button :size="headerButtonSize" :disabled="defaultZoom > 4" icon="el-icon-zoom-in" @click="processZoomIn()" />
-          </el-tooltip>
-        </el-button-group>
-        <el-button-group key="stack-control">
-          <el-tooltip effect="light" content="撤销">
-            <el-button :size="headerButtonSize" :disabled="!revocable" icon="el-icon-refresh-left" @click="processUndo()" />
-          </el-tooltip>
-          <el-tooltip effect="light" content="恢复">
-            <el-button :size="headerButtonSize" :disabled="!recoverable" icon="el-icon-refresh-right" @click="processRedo()" />
-          </el-tooltip>
-        </el-button-group>
-        </div>
-        <div>
-        <el-button-group key="file-control">
-          <el-tooltip effect="light">
-            <div slot="content">
-              <el-button :size="headerButtonSize" type="text" @click="previewProcessXML">预览XML</el-button>
-              <br />
-              <el-button :size="headerButtonSize" type="text" @click="previewProcessJson">预览JSON</el-button>
-            </div>
-            <el-button :size="headerButtonSize" :type="headerButtonType" icon="el-icon-view">预览</el-button>
-          </el-tooltip>
-          <el-tooltip effect="light">
-            <div slot="content">
-              <el-button :size="headerButtonSize" type="text" @click="downloadProcessAsXml()">下载为XML文件</el-button>
-              <br />
-              <el-button :size="headerButtonSize" type="text" @click="downloadProcessAsSvg()">下载为SVG文件</el-button>
-              <br />
-              <el-button :size="headerButtonSize" type="text" @click="downloadProcessAsBpmn()">下载为BPMN文件</el-button>
-            </div>
-            <el-button :size="headerButtonSize" :type="headerButtonType" icon="el-icon-download">下载文件</el-button>
-          </el-tooltip>
-          <el-tooltip v-if="simulation" effect="light" :content="this.simulationStatus ? '退出模拟' : '开启模拟'">
-            <el-button :size="headerButtonSize" :type="headerButtonType" icon="el-icon-cpu" @click="processSimulation">
-              模拟
-            </el-button>
-          </el-tooltip>
-           <el-button size="mini" icon="el-icon-check" type="primary" @click="openSubmitDialog">提交</el-button>
-        </el-button-group>
-        </div>
+          <div style="margin-left: 10px; display:inline-block;">
+            <el-button-group key="scale-control">
+              <el-tooltip effect="light" content="加载文件" placement="bottom">
+                <el-button :size="headerButtonSize" icon="el-icon-folder-opened" @click="$refs.refFile.click()" />
+              </el-tooltip>
+              <el-tooltip effect="light" content="新建">
+                <el-button :size="headerButtonSize" icon="el-icon-refresh" @click="processRestart" />
+              </el-tooltip>
+              <el-tooltip effect="light" content="自适应屏幕">
+                <el-button :size="headerButtonSize" icon="el-icon-rank" @click="processReZoom()" />
+              </el-tooltip>
+              <el-tooltip effect="light" content="缩小">
+                <el-button :size="headerButtonSize" :disabled="defaultZoom < 0.2" icon="el-icon-zoom-out" @click="processZoomOut()" />
+              </el-tooltip>
+              <el-button :size="headerButtonSize">{{ Math.floor(this.defaultZoom * 10 * 10) + "%" }}</el-button>
+              <el-tooltip effect="light" content="放大">
+                <el-button :size="headerButtonSize" :disabled="defaultZoom > 4" icon="el-icon-zoom-in" @click="processZoomIn()" />
+              </el-tooltip>
+            </el-button-group>
+            <el-button-group key="stack-control">
+              <el-tooltip effect="light" content="撤销">
+                <el-button :size="headerButtonSize" :disabled="!revocable" icon="el-icon-refresh-left" @click="processUndo()" />
+              </el-tooltip>
+              <el-tooltip effect="light" content="恢复">
+                <el-button :size="headerButtonSize" :disabled="!recoverable" icon="el-icon-refresh-right" @click="processRedo()" />
+              </el-tooltip>
+            </el-button-group>
+          </div>
+          <div>
+            <el-button-group key="file-control">
+              <el-tooltip effect="light">
+                <div slot="content">
+                  <el-button :size="headerButtonSize" type="text" @click="previewProcessXML">预览XML</el-button>
+                  <br />
+                  <el-button :size="headerButtonSize" type="text" @click="previewProcessJson">预览JSON</el-button>
+                </div>
+                <el-button :size="headerButtonSize" :type="headerButtonType" icon="el-icon-view">预览</el-button>
+              </el-tooltip>
+              <el-tooltip effect="light">
+                <div slot="content">
+                  <el-button :size="headerButtonSize" type="text" @click="downloadProcessAsXml()">下载XML</el-button>
+                  <br />
+                  <el-button :size="headerButtonSize" type="text" @click="downloadProcessAsSvg()">下载SVG</el-button>
+                  <br />
+                  <el-button :size="headerButtonSize" type="text" @click="downloadProcessAsBpmn()">下载BPMN</el-button>
+                </div>
+                <el-button :size="headerButtonSize" :type="headerButtonType" icon="el-icon-download">下载文件</el-button>
+              </el-tooltip>
+              <el-tooltip v-if="simulation" effect="light" :content="this.simulationStatus ? '退出模拟' : '开启模拟'">
+                <el-button :size="headerButtonSize" :type="headerButtonType" icon="el-icon-cpu" @click="processSimulation">
+                  模拟
+                </el-button>
+              </el-tooltip>
+              <el-button size="mini" icon="el-icon-check" type="primary" @click="openSubmitDialog">提交</el-button>
+            </el-button-group>
+          </div>
         </div>
       </template>
       <!-- 用于打开本地文件-->
@@ -108,7 +108,7 @@ import activitiModdleExtension from "./plugins/extension-moddle/activiti";
 import flowableModdleExtension from "./plugins/extension-moddle/flowable";
 // 引入json转换与高亮
 import convert from "xml-js";
-
+// 预览编辑器
 import VueAceEditor from "vue2-ace-editor";
 
 export default {
@@ -167,7 +167,8 @@ export default {
       previewResult: "",
       previewType: "xml",
       recoverable: false,
-      revocable: false
+      revocable: false,
+      submitDialogFlag: false
     };
   },
   computed: {
@@ -303,7 +304,7 @@ export default {
       let xmlString = xml || DefaultEmptyXML(newId, newName, this.prefix);
       try {
         let { warnings } = await this.bpmnModeler.importXML(xmlString);
-        this. processReZoom();
+        this.processReZoom();
         if (warnings && warnings.length) {
           warnings.forEach(warn => console.warn(warn));
         }
@@ -313,7 +314,8 @@ export default {
     },
 
     // 下载流程图到本地
-    async downloadProcess(type, name) {
+    async downloadProcess(type) {
+      let name = this.getProcessElement().name;
       try {
         const _this = this;
         // 按需要类型创建文件并下载
@@ -448,6 +450,15 @@ export default {
     },
     onCopy() {
       this.$message.success("内容复制成功");
+    },
+    openSubmitDialog() {
+      this.submitDialogFlag = true;
+    },
+    getProcessElement() {
+      const rootElements = this.bpmnModeler.getDefinitions().rootElements;
+      for (let i = 0; i < rootElements.length; i++) {
+        if (rootElements[i].$type === "bpmn:Process") return rootElements[i];
+      }
     }
   }
 };

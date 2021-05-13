@@ -152,7 +152,7 @@ export default {
     bpmnModeler: Object,
     prefix: {
       type: String,
-      default: "camunda"
+      default: "flowable"
     },
     width: {
       type: Number,
