@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 16px">
-    <el-form-item label="处理用户">
+    <!-- <el-form-item label="处理用户">
       <el-select v-model="userTaskForm.assignee" @change="updateElementTask('assignee')">
         <el-option v-for="ak in mockData" :key="'ass-' + ak" :label="`用户${ak}`" :value="`user${ak}`" />
       </el-select>
@@ -14,7 +14,7 @@
       <el-select v-model="userTaskForm.candidateGroups" multiple collapse-tags @change="updateElementTask('candidateGroups')">
         <el-option v-for="gk in mockData" :key="'ass-' + gk" :label="`分组${gk}`" :value="`group${gk}`" />
       </el-select>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item label="到期时间">
       <el-input v-model="userTaskForm.dueDate" clearable @change="updateElementTask('dueDate')" />
     </el-form-item>

@@ -2,12 +2,12 @@
   <div id="app">
     <my-process-designer
       :key="`designer-${reloadIndex}`"
-      v-model="xmlString"
       v-bind="controlForm"
       keyboard
       ref="processDesigner"
       @element-click="elementClick"
       @init-finished="initModeler"
+      @submitSuccess="submitSuccess"
     />
     <my-properties-panel :key="`penal-${reloadIndex}`" :bpmn-modeler="modeler" :prefix="controlForm.prefix" class="process-panel" />
 
@@ -47,9 +47,6 @@
           </el-radio-group>
         </el-form-item>
       </el-form>
-      <br />
-      <p style="color: #999999">注：activiti 好像不支持表单配置，控制台可能会报错</p>
-      <p style="color: #999999">更多配置请查看源码：<a href="https://github.com/miyuesc/bpmn-process-designer">MiyueSC/bpmn-process-designer</a></p>
     </el-drawer>
   </div>
 </template>
@@ -70,7 +67,6 @@ export default {
   components: {},
   data() {
     return {
-      xmlString: "",
       modeler: null,
       reloadIndex: 0,
       controlDrawerVisible: false,
@@ -88,10 +84,10 @@ export default {
       addis: {}
     };
   },
-  created() {
-    // console.log(this.translationsSelf);
-  },
   methods: {
+    submitSuccess() {
+      // returnModelTable();
+    },
     initModeler(modeler) {
       setTimeout(() => {
         this.modeler = modeler;

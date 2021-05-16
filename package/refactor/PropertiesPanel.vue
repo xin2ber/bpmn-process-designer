@@ -1,29 +1,42 @@
 <template>
   <div class="process-panel__container" :style="{ width: `${this.width}px` }">
+    <div v-if="nodeName" class="node-name">{{ nodeName }}</div>
     <el-collapse v-model="activeTab">
       <el-collapse-item name="base">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-info"></i>常规</div>
-        <element-base-info :id-edit-disabled="idEditDisabled" :business-object="elementBusinessObject" :type="elementType" />
+        <div slot="title" class="panel-tab__title"><i class="el-icon-info"></i>基本信息</div>
+        <element-base-info :id-edit-disabled="idEditDisabled" :business-object="elementBusinessObject" :type="elementType" @updateBusinessObject="updateBusinessObject"/>
       </el-collapse-item>
-      <el-collapse-item name="condition" v-if="elementType === 'Process'" key="message">
+      <!-- <el-collapse-item name="condition" v-if="elementType === 'Process'" key="message">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-comment"></i>消息与信号</div>
         <signal-and-massage />
-      </el-collapse-item>
+      </el-collapse-item> -->
       <el-collapse-item name="condition" v-if="conditionFormVisible" key="condition">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-promotion"></i>流转条件</div>
         <flow-condition :business-object="elementBusinessObject" :type="elementType" />
       </el-collapse-item>
-      <el-collapse-item name="condition" v-if="formVisible" key="form">
+      <!-- <el-collapse-item name="condition" v-if="formVisible" key="form">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-order"></i>表单</div>
         <element-form :id="elementId" :type="elementType" />
-      </el-collapse-item>
+      </el-collapse-item> -->
       <el-collapse-item name="task" v-if="elementType.indexOf('Task') !== -1" key="task">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>任务</div>
+        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>任务配置</div>
         <element-task :id="elementId" :type="elementType" />
       </el-collapse-item>
+      <el-collapse-item name="formUrl" v-if="elementType === 'UserTask' || elementType === 'Process'">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>表单</div>
+        <element-form-url :id="elementId" :type="elementType" />
+      </el-collapse-item>
       <el-collapse-item name="candidateUsers" v-if="elementType === 'UserTask'" key="candidateUsers">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i>节点人员</div>
-        <candidate-users :id="elementId" :type="elementType" />
+        <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i><el-badge is-dot class="item" :hidden="!hasCandidatesUsers">节点人员</el-badge></div>
+        <candidate-users :id="elementId" :type="elementType" @computedCandidates="computedCandidates"/>
+      </el-collapse-item>
+      <el-collapse-item name="in" v-if="elementType === 'CallActivity'">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>输入</div>
+        <in-out :id="elementId" :type="elementType" inOrOut="In" />
+      </el-collapse-item>
+      <el-collapse-item name="out" v-if="elementType === 'CallActivity'">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>输出</div>
+        <in-out :id="elementId" :type="elementType" inOrOut="Out" />
       </el-collapse-item>
       <el-collapse-item name="multiInstance" v-if="elementType.indexOf('Task') !== -1 || elementType === 'CallActivity'" key="multiInstance">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-help"></i>多实例</div>
@@ -41,53 +54,48 @@
         <div slot="title" class="panel-tab__title"><i class="el-icon-circle-plus"></i>扩展属性</div>
         <element-properties :id="elementId" :type="elementType" />
       </el-collapse-item>
-      <el-collapse-item name="other" key="other">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-promotion"></i>其他</div>
-        <element-other-config :id="elementId" />
-      </el-collapse-item>
     </el-collapse>
   </div>
 </template>
 <script>
-import ElementBaseInfo from "./base/ElementBaseInfo";
-import ElementOtherConfig from "./other/ElementOtherConfig";
-import ElementTask from "./task/ElementTask";
-import ElementMultiInstance from "./multi-instance/ElementMultiInstance";
-import FlowCondition from "./flow-condition/FlowCondition";
-import SignalAndMassage from "./signal-message/SignalAndMessage";
-import ElementListeners from "./listeners/ElementListeners";
-import ElementProperties from "./properties/ElementProperties";
-import ElementForm from "./form/ElementForm";
-import UserTaskListeners from "./listeners/UserTaskListeners";
-import CandidateUsers from "./candidateUsers/CandidateUsers";
-
+import ElementBaseInfo from "./property/base/ElementBaseInfo";
+import ElementTask from "./property/task/ElementTask";
+import ElementMultiInstance from "./property/multi-instance/ElementMultiInstance";
+import FlowCondition from "./property/flow-condition/FlowCondition";
+// import SignalAndMassage from "./signal-message/SignalAndMessage";
+import ElementListeners from "./property/listeners/ElementListeners";
+import ElementProperties from "./property/properties/ElementProperties";
+// import ElementForm from "./property/form/ElementForm";
+import UserTaskListeners from "./property/listeners/UserTaskListeners";
+import CandidateUsers from "./property/candidateUsers/CandidateUsers";
+import ElementFormUrl from "./property/formUrl/ElementFormUrl";
+import InOut from "./property/inOut/InOut";
+import { NodeName } from "../../package/process-designer/plugins/translate/zh";
 /**
  * 侧边栏
- * @Author MiyueFE
- * @Home https://github.com/miyuesc
- * @Date 2021年3月31日18:57:51
  */
 export default {
   name: "MyPropertiesPanel",
   components: {
     UserTaskListeners,
-    ElementForm,
+    // ElementForm,
     ElementProperties,
     ElementListeners,
-    SignalAndMassage,
+    // SignalAndMassage,
     FlowCondition,
     ElementMultiInstance,
     ElementTask,
-    ElementOtherConfig,
     ElementBaseInfo,
-    CandidateUsers
+    CandidateUsers,
+    ElementFormUrl,
+    InOut
   },
   componentName: "MyPropertiesPanel",
   props: {
     bpmnModeler: Object,
     prefix: {
       type: String,
-      default: "camunda"
+      default: "flowable"
     },
     width: {
       type: Number,
@@ -111,8 +119,17 @@ export default {
       elementType: "",
       elementBusinessObject: {}, // 元素 businessObject 镜像，提供给需要做判断的组件使用
       conditionFormVisible: false, // 流转条件设置
-      formVisible: false // 表单配置
+      formVisible: false, // 表单配置
+      hasCandidatesUsers: false
     };
+  },
+  computed: {
+    nodeName() {
+      if (this.elementType) {
+        return NodeName[this.elementType] || this.elementType;
+      }
+      return ''
+    }
   },
   watch: {
     elementId: {
@@ -196,7 +213,25 @@ export default {
     },
     beforeDestroy() {
       window.bpmnInstances = null;
+    },
+    computedCandidates(hasCandidatesUsers) {
+      console.log(hasCandidatesUsers);
+      this.hasCandidatesUsers = hasCandidatesUsers;
+    },
+    updateBusinessObject(obj) {
+      console.log(obj);
+      this.elementBusinessObject[obj.key] = obj.val;
     }
   }
 };
 </script>
+<style>
+  .node-name{
+    padding: 0 0 10px 20px;
+    margin-top: 20px;
+    margin-bottom: 3px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
+  }
+</style>

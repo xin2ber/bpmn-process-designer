@@ -902,13 +902,6 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
-"@bpmn-io/extract-process-variables@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.npm.taobao.org/@bpmn-io/extract-process-variables/download/@bpmn-io/extract-process-variables-0.3.0.tgz#175f81114b44092cefa6e15b45427f22f865031f"
-  integrity sha1-F1+BEUtECSzvpuFbRUJ/IvhlAx8=
-  dependencies:
-    min-dash "^3.5.2"
-
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.nlark.com/@hapi/address/download/@hapi/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -1931,6 +1924,13 @@ aws4@^1.8.0:
   resolved "https://registry.npm.taobao.org/aws4/download/aws4-1.11.0.tgz?cache=0&sync_timestamp=1604101311814&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Faws4%2Fdownload%2Faws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha1-1h9G2DslGSUOJ4Ta9bCUeai0HFk=
 
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.npm.taobao.org/axios/download/axios-0.21.1.tgz?cache=0&sync_timestamp=1608611162952&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Faxios%2Fdownload%2Faxios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha1-IlY0gZYvTWvemnbVFu8OXTwJsrg=
+  dependencies:
+    follow-redirects "^1.10.0"
+
 babel-eslint@^10.1.0:
   version "10.1.0"
   resolved "https://registry.npm.taobao.org/babel-eslint/download/babel-eslint-10.1.0.tgz?cache=0&sync_timestamp=1611945896690&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fbabel-eslint%2Fdownload%2Fbabel-eslint-10.1.0.tgz#6968e568a910b78fb3779cdd8b6ac2f479943232"
@@ -2117,19 +2117,6 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.npm.taobao.org/boolbase/download/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bpmn-js-properties-panel@^0.37.2:
-  version "0.37.6"
-  resolved "https://registry.nlark.com/bpmn-js-properties-panel/download/bpmn-js-properties-panel-0.37.6.tgz#b09598915c956911e46c771e4a6078332a1a9fe4"
-  integrity sha1-sJWYkVyVaRHkbHceSmB4Myoan+Q=
-  dependencies:
-    "@bpmn-io/extract-process-variables" "^0.3.0"
-    ids "^1.0.0"
-    inherits "^2.0.1"
-    lodash "^4.17.20"
-    min-dom "^3.1.3"
-    scroll-tabs "^1.0.1"
-    selection-update "^0.1.2"
-
 bpmn-js-token-simulation@^0.10.0:
   version "0.10.0"
   resolved "https://registry.nlark.com/bpmn-js-token-simulation/download/bpmn-js-token-simulation-0.10.0.tgz#10e086170cbe5df5e4b63b2b3c7dfd1b80afdc73"
@@ -2139,15 +2126,15 @@ bpmn-js-token-simulation@^0.10.0:
     min-dom "^0.2.0"
     svg.js "^2.6.3"
 
-bpmn-js@^7.4.0:
-  version "7.5.0"
-  resolved "https://registry.nlark.com/bpmn-js/download/bpmn-js-7.5.0.tgz#0e4675acdbdff676db859f8cb7ec395d20e7bbd8"
-  integrity sha1-DkZ1rNvf9nbbhZ+Mt+w5XSDnu9g=
+bpmn-js@^8.5.0:
+  version "8.5.0"
+  resolved "https://registry.nlark.com/bpmn-js/download/bpmn-js-8.5.0.tgz#fcfa1dddb67c95c2c5ff8c380759f32fe98fc2e1"
+  integrity sha1-/Pod3bZ8lcLF/4w4B1nzL+mPwuE=
   dependencies:
-    bpmn-moddle "^7.0.4"
+    bpmn-moddle "^7.0.5"
     css.escape "^1.5.1"
-    diagram-js "^6.8.2"
-    diagram-js-direct-editing "^1.6.1"
+    diagram-js "^7.3.0"
+    diagram-js-direct-editing "^1.6.2"
     ids "^1.0.0"
     inherits "^2.0.4"
     min-dash "^3.5.2"
@@ -2155,7 +2142,7 @@ bpmn-js@^7.4.0:
     object-refs "^0.3.0"
     tiny-svg "^2.2.2"
 
-bpmn-moddle@^7.0.4:
+bpmn-moddle@^7.0.5:
   version "7.0.5"
   resolved "https://registry.nlark.com/bpmn-moddle/download/bpmn-moddle-7.0.5.tgz#4b2c28672b2b3c5669dc541bf2d5d744ed4b4d30"
   integrity sha1-SywoZysrPFZp3FQb8tXXRO1LTTA=
@@ -3405,7 +3392,7 @@ detect-node@^2.0.4:
   resolved "https://registry.npm.taobao.org/detect-node/download/detect-node-2.0.5.tgz?cache=0&sync_timestamp=1615921320304&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdetect-node%2Fdownload%2Fdetect-node-2.0.5.tgz#9d270aa7eaa5af0b72c4c9d9b814e7f4ce738b79"
   integrity sha1-nScKp+qlrwtyxMnZuBTn9M5zi3k=
 
-diagram-js-direct-editing@^1.6.1:
+diagram-js-direct-editing@^1.6.2:
   version "1.6.2"
   resolved "https://registry.npm.taobao.org/diagram-js-direct-editing/download/diagram-js-direct-editing-1.6.2.tgz#d6ed7076f24227048d7ea6b1837b9a08954fc6ad"
   integrity sha1-1u1wdvJCJwSNfqaxg3uaCJVPxq0=
@@ -3413,25 +3400,25 @@ diagram-js-direct-editing@^1.6.1:
     min-dash "^3.5.2"
     min-dom "^3.1.3"
 
-diagram-js@^6.8.2:
-  version "6.8.2"
-  resolved "https://registry.nlark.com/diagram-js/download/diagram-js-6.8.2.tgz?cache=0&sync_timestamp=1620317517542&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdiagram-js%2Fdownload%2Fdiagram-js-6.8.2.tgz#d3c37915c62c0cc5d95bc533098c8a35b38e67be"
-  integrity sha1-08N5FcYsDMXZW8UzCYyKNbOOZ74=
+diagram-js@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.nlark.com/diagram-js/download/diagram-js-7.3.0.tgz?cache=0&sync_timestamp=1620317517542&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdiagram-js%2Fdownload%2Fdiagram-js-7.3.0.tgz#cea20d479df87d0311ad56337f3c99d084ebcd37"
+  integrity sha1-zqINR534fQMRrVYzfzyZ0ITrzTc=
   dependencies:
     css.escape "^1.5.1"
-    didi "^4.0.0"
+    didi "^5.2.1"
     hammerjs "^2.0.1"
-    inherits "^2.0.1"
-    min-dash "^3.5.0"
-    min-dom "^3.1.2"
+    inherits "^2.0.4"
+    min-dash "^3.5.2"
+    min-dom "^3.1.3"
     object-refs "^0.3.0"
-    path-intersection "^2.2.0"
-    tiny-svg "^2.2.1"
+    path-intersection "^2.2.1"
+    tiny-svg "^2.2.2"
 
-didi@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npm.taobao.org/didi/download/didi-4.0.0.tgz#2b89d892a67fd3777f7642d3bf06697b69e9b622"
-  integrity sha1-K4nYkqZ/03d/dkLTvwZpe2nptiI=
+didi@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.npm.taobao.org/didi/download/didi-5.2.1.tgz#1a0b1336be8baa0b068a72036eedd9fb94135bff"
+  integrity sha1-GgsTNr6LqgsGinIDbu3Z+5QTW/8=
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
@@ -3586,7 +3573,7 @@ electron-to-chromium@^1.3.723:
   resolved "https://registry.nlark.com/electron-to-chromium/download/electron-to-chromium-1.3.727.tgz#857e310ca00f0b75da4e1db6ff0e073cc4a91ddf"
   integrity sha1-hX4xDKAPC3XaTh22/w4HPMSpHd8=
 
-element-ui@^2.13.2:
+element-ui@^2.15.1:
   version "2.15.1"
   resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.15.1.tgz#ada00aa6e32c02774a2e77563dd84668f813cdff"
   integrity sha1-raAKpuMsAndKLndWPdhGaPgTzf8=
@@ -4239,7 +4226,7 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.10.0:
   version "1.14.1"
   resolved "https://registry.nlark.com/follow-redirects/download/follow-redirects-1.14.1.tgz?cache=0&sync_timestamp=1620555292056&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ffollow-redirects%2Fdownload%2Ffollow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
   integrity sha1-2RFN7Qoc/dM04WTmZirQK/2R/0M=
@@ -5835,7 +5822,7 @@ mimic-fn@^2.1.0:
   resolved "https://registry.npm.taobao.org/mimic-fn/download/mimic-fn-2.1.0.tgz?cache=0&sync_timestamp=1617823583529&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmimic-fn%2Fdownload%2Fmimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha1-ftLCzMyvhNP/y3pptXcR/CCDQBs=
 
-min-dash@^3.0.0, min-dash@^3.1.0, min-dash@^3.3.0, min-dash@^3.5.0, min-dash@^3.5.2:
+min-dash@^3.0.0, min-dash@^3.3.0, min-dash@^3.5.2:
   version "3.7.0"
   resolved "https://registry.npm.taobao.org/min-dash/download/min-dash-3.7.0.tgz#d7f510ddfe0087e63a79e6f0a4db6086958fd9fc"
   integrity sha1-1/UQ3f4Ah+Y6eebwpNtghpWP2fw=
@@ -5853,7 +5840,7 @@ min-dom@^0.2.0:
     component-query "^0.0.3"
     domify "^1.3.1"
 
-min-dom@^3.1.0, min-dom@^3.1.2, min-dom@^3.1.3:
+min-dom@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npm.taobao.org/min-dom/download/min-dom-3.1.3.tgz?cache=0&sync_timestamp=1591261603878&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmin-dom%2Fdownload%2Fmin-dom-3.1.3.tgz#6d3f4092439c80d13df52ac98d6a7d5fe92bfdbd"
   integrity sha1-bT9AkkOcgNE99SrJjWp9X+kr/b0=
@@ -5946,11 +5933,6 @@ mississippi@^3.0.0:
     pumpify "^1.3.3"
     stream-each "^1.1.0"
     through2 "^2.0.0"
-
-mitt@^1.1.3:
-  version "1.2.0"
-  resolved "https://registry.npm.taobao.org/mitt/download/mitt-1.2.0.tgz?cache=0&sync_timestamp=1594823826025&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmitt%2Fdownload%2Fmitt-1.2.0.tgz#cb24e6569c806e31bd4e3995787fe38a04fdf90d"
-  integrity sha1-yyTmVpyAbjG9TjmVeH/jigT9+Q0=
 
 mixin-deep@^1.2.0:
   version "1.3.2"
@@ -6588,7 +6570,7 @@ path-exists@^4.0.0:
   resolved "https://registry.npm.taobao.org/path-exists/download/path-exists-4.0.0.tgz#513bdbe2d3b95d7762e8c1137efa195c6c61b5b3"
   integrity sha1-UTvb4tO5XXdi6METfvoZXGxhtbM=
 
-path-intersection@^2.2.0:
+path-intersection@^2.2.1:
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/path-intersection/download/path-intersection-2.2.1.tgz#8476b75fefb7ac402f810d304e0eb0c080c11fe7"
   integrity sha1-hHa3X++3rEAvgQ0wTg6wwIDBH+c=
@@ -7687,15 +7669,6 @@ schema-utils@^3.0.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scroll-tabs@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npm.taobao.org/scroll-tabs/download/scroll-tabs-1.0.1.tgz#bac04e4a1725e8a03344bae644dd6d7cdc192452"
-  integrity sha1-usBOShcl6KAzRLrmRN1tfNwZJFI=
-  dependencies:
-    min-dash "^3.1.0"
-    min-dom "^3.1.0"
-    mitt "^1.1.3"
-
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.nlark.com/select-hose/download/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -7705,11 +7678,6 @@ select@^1.1.2:
   version "1.1.2"
   resolved "https://registry.nlark.com/select/download/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
   integrity sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=
-
-selection-update@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.npm.taobao.org/selection-update/download/selection-update-0.1.2.tgz#803a044dcc6edab5a3ae648f5f0357e89ad66b96"
-  integrity sha1-gDoETcxu2rWjrmSPXwNX6JrWa5Y=
 
 selfsigned@^1.10.8:
   version "1.10.11"
@@ -8462,7 +8430,7 @@ tiny-emitter@^2.0.0:
   resolved "https://registry.nlark.com/tiny-emitter/download/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
   integrity sha1-HRpW7fxRxD6GPLtTgqcjMONVVCM=
 
-tiny-svg@^2.2.1, tiny-svg@^2.2.2:
+tiny-svg@^2.2.2:
   version "2.2.2"
   resolved "https://registry.npm.taobao.org/tiny-svg/download/tiny-svg-2.2.2.tgz#9d9825c2e0ccb5e259bb1ae7d7ac79194e086657"
   integrity sha1-nZglwuDMteJZuxrn16x5GU4IZlc=

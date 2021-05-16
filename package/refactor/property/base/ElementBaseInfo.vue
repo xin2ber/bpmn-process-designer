@@ -14,17 +14,31 @@
       </el-form-item>
       <!--流程的基础属性-->
       <template v-if="elementBaseInfo.$type === 'bpmn:Process'">
-        <el-form-item label="版本标签">
+        <el-form-item label="版本">
           <el-input v-model="elementBaseInfo.versionTag" clearable @change="updateBaseInfo('versionTag')" />
         </el-form-item>
-        <el-form-item label="可执行">
-          <el-switch v-model="elementBaseInfo.isExecutable" active-text="是" inactive-text="否" @change="updateBaseInfo('isExecutable')" />
-        </el-form-item>
+        <el-form-item label="类别">
+        <el-select v-model="elementBaseInfo.processCategory" @change="updateBaseInfo('processCategory')">
+          <el-option v-for="item in categorys" :key="item.categoryCode"  :label="item.categoryName" :value="item.categoryCode" />
+        </el-select>
+      </el-form-item>
       </template>
+      <el-form-item label="描述">
+        <el-input
+          type="textarea"
+          v-model="documentation"
+          size="mini"
+          resize="vertical"
+          :autosize="{ minRows: 2, maxRows: 4 }"
+          @change="updateDocumentation()"
+        />
+      </el-form-item>
     </el-form>
   </div>
 </template>
 <script>
+import { getCategoryList } from '../../../api/api'
+
 export default {
   name: "ElementBaseInfo",
   props: {
@@ -37,7 +51,9 @@ export default {
   },
   data() {
     return {
-      elementBaseInfo: {}
+      elementBaseInfo: {},
+      documentation: '',
+      categorys: ['1']
     };
   },
   watch: {
@@ -50,14 +66,22 @@ export default {
       }
     }
   },
+  mounted() {
+    getCategoryList().then(resp => {
+      this.categorys = resp;
+    })
+  },
   methods: {
     resetBaseInfo() {
       this.bpmnElement = window?.bpmnInstances?.bpmnElement;
       this.elementBaseInfo = JSON.parse(JSON.stringify(this.bpmnElement.businessObject));
+      const documentationElements = window.bpmnInstances.bpmnElement.businessObject?.documentation;
+      this.documentation = documentationElements && documentationElements.length ? documentationElements[0].text : "";
     },
     updateBaseInfo(key) {
       const attrObj = Object.create(null);
       attrObj[key] = this.elementBaseInfo[key];
+      console.log(attrObj)
       if (key === "id") {
         window.bpmnInstances.modeling.updateProperties(this.bpmnElement, {
           id: this.elementBaseInfo[key],
@@ -65,6 +89,20 @@ export default {
         });
       } else {
         window.bpmnInstances.modeling.updateProperties(this.bpmnElement, attrObj);
+      }
+    },
+    updateDocumentation() {
+      console.log( this.documentation);
+      if (this.documentation) {
+        const documentationElement = window.bpmnInstances.bpmnFactory.create("bpmn:Documentation", { text: this.documentation });
+        console.log(documentationElement);
+        window.bpmnInstances.modeling.updateProperties(this.bpmnElement, {
+          documentation: [documentationElement]
+        });
+      } else {
+        window.bpmnInstances.modeling.updateProperties(this.bpmnElement, {
+          documentation: null
+        });
       }
     }
   },

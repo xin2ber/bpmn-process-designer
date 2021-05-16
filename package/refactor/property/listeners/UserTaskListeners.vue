@@ -184,7 +184,7 @@
   </div>
 </template>
 <script>
-import { createListenerObject, updateElementExtensions } from "../../utils";
+import { createListenerObject, updateElementExtensions } from "../../../utils";
 import { initListenerForm, initListenerType, eventType, listenerType, fieldType } from "./utilSelf";
 
 export default {

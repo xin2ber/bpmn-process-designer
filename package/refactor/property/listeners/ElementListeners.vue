@@ -160,7 +160,7 @@
   </div>
 </template>
 <script>
-import { createListenerObject, updateElementExtensions } from "../../utils";
+import { createListenerObject, updateElementExtensions } from "../../../utils";
 import { initListenerType, initListenerForm, listenerType, fieldType } from "./utilSelf";
 
 export default {
