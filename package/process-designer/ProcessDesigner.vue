@@ -83,6 +83,11 @@
         <el-button icon="el-icon-close" @click="previewModelVisible = false">关闭</el-button>
       </span>
     </el-dialog>
+    <submit-dialog
+      :submitDialogFlag.sync="submitDialogFlag"
+      :deployed="Boolean(processDefinitionId)"
+      @submit="submit"
+    />
   </div>
 </template>
 
@@ -110,15 +115,17 @@ import flowableModdleExtension from "./plugins/extension-moddle/flowable";
 import convert from "xml-js";
 // 预览编辑器
 import VueAceEditor from "vue2-ace-editor";
+import { getXmlByModelId, getXmlByDefId, submitModel } from '../api/api'
+import SubmitDialog from "./SubmitDialog";
 
 export default {
   name: "MyProcessDesigner",
   componentName: "MyProcessDesigner",
   components: {
-    VueAceEditor
+    VueAceEditor,
+    SubmitDialog
   },
   props: {
-    value: String, // xml 字符串
     processId: String,
     processName: String,
     translations: Object, // 自定义的翻译文件
@@ -161,6 +168,7 @@ export default {
   },
   data() {
     return {
+      value: '', // xml 字符串
       defaultZoom: 1,
       previewModelVisible: false,
       simulationStatus: false,
@@ -168,8 +176,54 @@ export default {
       previewType: "xml",
       recoverable: false,
       revocable: false,
-      submitDialogFlag: false
+      submitDialogFlag: false,
+      modelId: "",
+      processDefinitionId: ""
     };
+  },
+  watch: {
+    value: function(val) {
+      this.createNewDiagram(val)
+    },
+    modelId: function(val) {
+      if (val) {
+        getXmlByModelId(val).then(resp => {
+          if (resp) {
+            this.value = resp
+          } else {
+            this.createNewDiagram(null);
+          }
+        }).catch(err=>{
+          this.createNewDiagram(null);
+        });
+      }
+    },
+    processDefinitionId: function(val) {
+      if (val) {
+        getXmlByDefId(val).then(resp => {
+          if (resp) {
+            this.value = resp
+          } else {
+            this.createNewDiagram(null);
+          }
+        }).catch(err=>{
+          this.createNewDiagram(null);
+        });
+      }
+    }
+  },
+  mounted() {
+    this.initBpmnModeler();
+    this.modelId = document.getElementById('modelId').value ?? null
+    this.processDefinitionId = document.getElementById('processDefinitionId').value ?? null
+    if(!this.modelId && !this.processDefinitionId){
+      this.createNewDiagram(this.value);
+    }
+    this.$once("hook:beforeDestroy", () => {
+      if (this.bpmnModeler) this.bpmnModeler.destroy();
+      this.$emit("destroy", this.bpmnModeler);
+      this.bpmnModeler = null;
+    });
   },
   computed: {
     additionalModules() {
@@ -244,15 +298,6 @@ export default {
       return Extensions;
     }
   },
-  mounted() {
-    this.initBpmnModeler();
-    this.createNewDiagram(this.value);
-    this.$once("hook:beforeDestroy", () => {
-      if (this.bpmnModeler) this.bpmnModeler.destroy();
-      this.$emit("destroy", this.bpmnModeler);
-      this.bpmnModeler = null;
-    });
-  },
   methods: {
     initBpmnModeler() {
       if (this.bpmnModeler) return;
@@ -312,7 +357,14 @@ export default {
         console.error(`[Process Designer Warn]: ${e.message || e}`);
       }
     },
-
+    async saveXML() {
+      const { err, xml } = await this.bpmnModeler.saveXML({ format: true });
+      // 读取异常时抛出异常
+      if (err) {
+        console.error(`[Process Designer Warn ]: ${err.message || err}`);
+      }
+      return xml;
+    },
     // 下载流程图到本地
     async downloadProcess(type) {
       let name = this.getProcessElement().name;
@@ -320,11 +372,7 @@ export default {
         const _this = this;
         // 按需要类型创建文件并下载
         if (type === "xml" || type === "bpmn") {
-          const { err, xml } = await this.bpmnModeler.saveXML();
-          // 读取异常时抛出异常
-          if (err) {
-            console.error(`[Process Designer Warn ]: ${err.message || err}`);
-          }
+          const xml = await this.saveXML();
           let { href, filename } = _this.setEncoded(type.toUpperCase(), name, xml);
           downloadFunc(href, filename);
         } else {
@@ -453,6 +501,18 @@ export default {
     },
     openSubmitDialog() {
       this.submitDialogFlag = true;
+      console.log(this.submitDialogFlag);
+    },
+    async submit(data) {
+      data.xml = await this.saveXML()
+      data.id = this.modelId
+      data.processDefinitionId = this.processDefinitionId
+      submitModel(data).then((rsp) => {
+        if (rsp !== false) {
+          this.submitDialogFlag = false
+          this.$emit('submitSuccess')
+        }
+      })
     },
     getProcessElement() {
       const rootElements = this.bpmnModeler.getDefinitions().rootElements;

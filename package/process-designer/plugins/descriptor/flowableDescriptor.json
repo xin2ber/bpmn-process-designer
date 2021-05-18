@@ -277,6 +277,37 @@
           "isAttr": true,
           "type": "Boolean",
           "default": true
+        },
+        {
+          "name": "processCategory",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "unpackVariable",
+          "default": false,
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "pcUrl",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "mobileUrl",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "pcInfoUrl",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "mobileInfoUrl",
+          "isAttr": true,
+          "type": "String"
         }
       ]
     },
@@ -330,6 +361,46 @@
       "properties": [
         {
           "name": "resource",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "UserTask",
+      "isAbstract": true,
+      "extends": ["bpmn:UserTask"],
+      "properties": [
+        {
+          "name": "timerEventDefinition",
+          "type": "Expression"
+        },
+        {
+          "name": "multiInstanceLoopCharacteristics",
+          "type": "MultiInstanceLoopCharacteristics"
+        },
+        {
+          "name": "pcUrl",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "mobileUrl",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "pcInfoUrl",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "mobileInfoUrl",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "completeAutoExpression",
           "isAttr": true,
           "type": "String"
         }
@@ -1081,6 +1152,36 @@
           "name": "variableEvent",
           "isAttr": true,
           "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Candidates",
+      "superClass": ["Element"],
+      "meta": {
+        "allowedIn": ["bpmn:UserTask"]
+      },
+      "properties": [
+        {
+          "name": "candidates",
+          "type": "Candidate",
+          "isMany": true
+        }
+      ]
+    },
+    {
+      "name": "Candidate",
+      "superClass": ["Element"],
+      "properties": [
+        {
+          "name": "type",
+          "type": "String",
+          "isAttr": true
+        },
+        {
+          "name": "value",
+          "type": "String",
+          "isAttr": true
         }
       ]
     }

@@ -1,31 +1,19 @@
 <template>
   <div class="panel-tab__content">
     <el-table :data="elementPropertyList" size="mini" max-height="240" border fit>
-      <el-table-column label="类型">
-		<template slot-scope="scope">
-          <el-select v-model="scope.row.type" class="select" placeholder="请选择">
-            <el-option v-for="item in typeList " :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
-        </template>
-      </el-table-column>
-      <el-table-column label="值">
-		<template slot-scope="scope">
-          <el-select v-if="scope.row.type == 'operator'" v-model="scope.row.params" class="select" placeholder="请选择" filterable allow-create>
-              <el-option v-for="item in operatorList " :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
-          <el-input v-else v-model="scope.row.params" placeholder="请输入" />
-        </template>
-      </el-table-column>
+      <el-table-column label="序号" width="50px" type="index" />
+      <el-table-column label="属性名" prop="name" min-width="100px" show-overflow-tooltip />
+      <el-table-column label="属性值" prop="value" min-width="100px" show-overflow-tooltip />
       <el-table-column label="操作" width="90px">
         <template slot-scope="{ row, $index }">
           <el-button size="mini" type="text" @click="openAttributesForm(row, $index)">编辑</el-button>
           <el-divider direction="vertical" />
-          <el-button size="mini" type="text" style="color: #ff4d4f" @click="remove($index)">移除</el-button>
+          <el-button size="mini" type="text" style="color: #ff4d4f" @click="removeAttributes(row, $index)">移除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="element-drawer__button">
-      <el-button size="mini" type="primary" icon="el-icon-plus" @click="add">添加属性</el-button>
+      <el-button size="mini" type="primary" icon="el-icon-plus" @click="openAttributesForm(null, -1)">添加属性</el-button>
     </div>
 
     <el-dialog :visible.sync="propertyFormModelVisible" title="属性配置" width="600px" append-to-body destroy-on-close>
@@ -47,7 +35,7 @@
 
 <script>
 export default {
-  name: "CandidateUsers",
+  name: "ElementProperties",
   props: {
     id: String,
     type: String
@@ -61,19 +49,7 @@ export default {
       elementPropertyList: [],
       propertyForm: {},
       editingPropertyIndex: -1,
-      propertyFormModelVisible: false,
-      typeList: [
-        { label: '用户', value: 'user' },
-        { label: '脚本', value: 'expression' },
-        { label: '操作符', value: 'operator' }
-      ],
-      operatorList: [
-        { label: '交集', value: '∩' },
-        { label: '并集', value: '∪' },
-        { label: '差集', value: '-' },
-        { label: '左括号', value: '(' },
-        { label: '右括号', value: ')' }
-      ]
+      propertyFormModelVisible: false
     };
   },
   watch: {
@@ -85,12 +61,6 @@ export default {
     }
   },
   methods: {
-    add() {
-      this.elementPropertyList.splice(this.elementPropertyList.length, 0, {});
-    },
-    remove(index) {
-      this.elementPropertyList.splice(index, 1);
-    },
     resetAttributesList() {
       this.bpmnElement = window.bpmnInstances.bpmnElement;
       this.otherExtensionList = []; // 其他扩展配置
@@ -101,7 +71,6 @@ export default {
           }
           return ex.$type === `${this.prefix}:Properties`;
         }) ?? [];
-
       // 保存所有的 扩展属性字段
       this.bpmnElementPropertyList = this.bpmnElementProperties.reduce((pre, current) => pre.concat(current.values), []);
       // 复制 显示
@@ -127,6 +96,7 @@ export default {
           const propertiesObject = window.bpmnInstances.moddle.create(`${this.prefix}:Properties`, {
             values: this.bpmnElementPropertyList
           });
+          console.log(propertiesObject);
           this.updateElementExtensions(propertiesObject);
           this.resetAttributesList();
         })

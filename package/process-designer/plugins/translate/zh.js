@@ -236,3 +236,26 @@ export default {
   Startable: "启动",
   "Specify more than one group as a comma separated list.": "指定多个组作为逗号分隔的列表。"
 };
+
+export const NodeName = {
+  'bpmn:Process': '流程',
+  'bpmn:StartEvent': '开始事件',
+  'bpmn:IntermediateThrowEvent': '中间事件',
+  'bpmn:Task': '任务',
+  'bpmn:SendTask': '发送任务',
+  'bpmn:ReceiveTask': '接收任务',
+  'bpmn:UserTask': '用户任务',
+  'bpmn:ManualTask': '手工任务',
+  'bpmn:BusinessRuleTask': '业务规则任务',
+  'bpmn:ServiceTask': '服务任务',
+  'bpmn:ScriptTask': '脚本任务',
+  'bpmn:EndEvent': '结束事件',
+  'bpmn:SequenceFlow': '流程线',
+  'bpmn:ExclusiveGateway': '互斥网关',
+  'bpmn:ParallelGateway': '并行网关',
+  'bpmn:InclusiveGateway': '相容网关',
+  'bpmn:ComplexGateway': '复杂网关',
+  'bpmn:EventBasedGateway': '事件网关',
+  'bpmn:CallActivity': '调用活动',
+  'bpmn:SubProcess': '子流程'
+};

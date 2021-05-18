@@ -2,6 +2,8 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const IS_PROD = process.env.NODE_ENV === "production";
 
+const NODE_ENV = process.env.NODE_ENV
+
 const cdn = {
   externals: {
     vue: "Vue",
@@ -20,26 +22,39 @@ module.exports = {
   publicPath: IS_PROD ? "././" : "/", // 打包相对路径
   outputDir: 'D:/workspace/xte/xte-demo/xte-fastdev-flowable/src/main/resources/static/scripts/flow/model',
   productionSourceMap: false,
+  filenameHashing: false,
   devServer: {
-    port: 8100
+    proxy: 'http://localhost:8088'
+
   },
   chainWebpack: config => {
-    // ============注入cdn start============
-    config.plugin("html").tap(args => {
-      // 生产环境或本地需要cdn时，才注入cdn
-      if (IS_PROD) args[0].cdn = cdn;
-      return args;
-    });
-    // ============注入cdn start============
-  },
-  configureWebpack: config => {
-    // 生产环境相关配置
-    if (IS_PROD) {
-      // cdn
-      config.externals = cdn.externals;
-
-      // 代码混淆
-      config.plugins.push(new TerserPlugin());
-    }
+    config
+      .when(NODE_ENV !== 'development' && NODE_ENV !== 'dev',
+        config => {
+          config
+            .optimization.splitChunks({
+              chunks: 'all',
+              cacheGroups: {
+                libs: {
+                  name: 'chunk-libs',
+                  test: /[\\/]node_modules[\\/]/,
+                  priority: 10,
+                  chunks: 'initial' // only package third parties that are initially dependent
+                },
+                elementUI: {
+                  name: 'chunk-elementUI', // split elementUI into a single package
+                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+                },
+                vue: {
+                  name: 'chunk-vue', // split elementUI into a single package
+                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+                  test: /[\\/]node_modules[\\/]_?vue(.*)/ // in order to adapt to cnpm
+                }
+              }
+            })
+          config.optimization.runtimeChunk('single')
+        }
+      )
   }
 };
