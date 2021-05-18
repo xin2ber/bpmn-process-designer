@@ -1696,6 +1696,13 @@ axios@^0.21.1:
   dependencies:
     follow-redirects "^1.10.0"
 
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.npm.taobao.org/axios/download/axios-0.21.1.tgz?cache=0&sync_timestamp=1608611162952&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Faxios%2Fdownload%2Faxios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha1-IlY0gZYvTWvemnbVFu8OXTwJsrg=
+  dependencies:
+    follow-redirects "^1.10.0"
+
 babel-eslint@^10.1.0:
   version "10.1.0"
   resolved "https://registry.npm.taobao.org/babel-eslint/download/babel-eslint-10.1.0.tgz?cache=0&sync_timestamp=1611945896690&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fbabel-eslint%2Fdownload%2Fbabel-eslint-10.1.0.tgz#6968e568a910b78fb3779cdd8b6ac2f479943232"
@@ -1856,6 +1863,10 @@ bonjour@^3.5.0:
 boolbase@^1.0.0, boolbase@~1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/boolbase/download/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
+<<<<<<< HEAD
+=======
+  integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
 
 bpmn-js-token-simulation@^0.10.0:
   version "0.10.0"
@@ -1867,7 +1878,12 @@ bpmn-js-token-simulation@^0.10.0:
 
 bpmn-js@^8.5.0:
   version "8.5.0"
+<<<<<<< HEAD
   resolved "https://registry.yarnpkg.com/bpmn-js/-/bpmn-js-8.5.0.tgz#fcfa1dddb67c95c2c5ff8c380759f32fe98fc2e1"
+=======
+  resolved "https://registry.nlark.com/bpmn-js/download/bpmn-js-8.5.0.tgz#fcfa1dddb67c95c2c5ff8c380759f32fe98fc2e1"
+  integrity sha1-/Pod3bZ8lcLF/4w4B1nzL+mPwuE=
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
   dependencies:
     bpmn-moddle "^7.0.5"
     css.escape "^1.5.1"
@@ -2978,7 +2994,12 @@ diagram-js-direct-editing@^1.6.2:
 
 diagram-js@^7.3.0:
   version "7.3.0"
+<<<<<<< HEAD
   resolved "https://registry.yarnpkg.com/diagram-js/-/diagram-js-7.3.0.tgz#cea20d479df87d0311ad56337f3c99d084ebcd37"
+=======
+  resolved "https://registry.nlark.com/diagram-js/download/diagram-js-7.3.0.tgz?cache=0&sync_timestamp=1620317517542&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdiagram-js%2Fdownload%2Fdiagram-js-7.3.0.tgz#cea20d479df87d0311ad56337f3c99d084ebcd37"
+  integrity sha1-zqINR534fQMRrVYzfzyZ0ITrzTc=
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
   dependencies:
     css.escape "^1.5.1"
     didi "^5.2.1"
@@ -2992,7 +3013,12 @@ diagram-js@^7.3.0:
 
 didi@^5.2.1:
   version "5.2.1"
+<<<<<<< HEAD
   resolved "https://registry.yarnpkg.com/didi/-/didi-5.2.1.tgz#1a0b1336be8baa0b068a72036eedd9fb94135bff"
+=======
+  resolved "https://registry.npm.taobao.org/didi/download/didi-5.2.1.tgz#1a0b1336be8baa0b068a72036eedd9fb94135bff"
+  integrity sha1-GgsTNr6LqgsGinIDbu3Z+5QTW/8=
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
@@ -6645,6 +6671,10 @@ select-hose@^2.0.0:
 select@^1.1.2:
   version "1.1.2"
   resolved "https://registry.nlark.com/select/download/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
+<<<<<<< HEAD
+=======
+  integrity sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
 
 selfsigned@^1.10.8:
   version "1.10.11"

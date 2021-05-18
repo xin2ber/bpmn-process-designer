@@ -2,6 +2,7 @@
   <div class="process-panel__container" :style="{ width: `${this.width}px` }">
     <div v-if="nodeName" class="node-name">{{ nodeName }}</div>
     <el-collapse v-model="activeTab">
+<<<<<<< HEAD
         <template v-for="(item, key) in showConfig.components">
           <el-collapse-item :key="key" v-if="element" :name="item">
             <div slot="title" class="panel-tab__title"><i class="el-icon-info"></i>{{getComponentName(item)}}</div>
@@ -18,18 +19,32 @@
         <div slot="title" class="panel-tab__title"><i class="el-icon-info"></i>基本信息</div>
         <element-base-info v-if="element" :element = "element" :modeler="bpmnModeler" :id-edit-disabled="idEditDisabled" />
       </el-collapse-item> -->
+=======
+      <el-collapse-item name="base">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-info"></i>基本信息</div>
+        <element-base-info :id-edit-disabled="idEditDisabled" :business-object="elementBusinessObject" :type="elementType" @updateBusinessObject="updateBusinessObject"/>
+      </el-collapse-item>
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
       <!-- <el-collapse-item name="condition" v-if="elementType === 'Process'" key="message">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-comment"></i>消息与信号</div>
         <signal-and-massage />
       </el-collapse-item> -->
+<<<<<<< HEAD
       <!-- <el-collapse-item name="condition" v-if="showConfig.condition" key="condition">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-promotion"></i>流转条件</div>
         <flow-condition :business-object="elementBusinessObject" :type="elementType" />
       </el-collapse-item> -->
+=======
+      <el-collapse-item name="condition" v-if="conditionFormVisible" key="condition">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-s-promotion"></i>流转条件</div>
+        <flow-condition :business-object="elementBusinessObject" :type="elementType" />
+      </el-collapse-item>
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
       <!-- <el-collapse-item name="condition" v-if="formVisible" key="form">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-order"></i>表单</div>
         <element-form :id="elementId" :type="elementType" />
       </el-collapse-item> -->
+<<<<<<< HEAD
       <!-- <el-collapse-item name="task" v-if="showConfig.task" key="task">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>任务配置</div>
         <element-task :id="elementId" :type="elementType" />
@@ -37,6 +52,27 @@
       <el-collapse-item name="formUrl" v-if="showConfig.form">
         <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>表单</div>
         <element-form-url :id="elementId" :type="elementType" />
+=======
+      <el-collapse-item name="task" v-if="elementType.indexOf('Task') !== -1" key="task">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>任务配置</div>
+        <element-task :id="elementId" :type="elementType" />
+      </el-collapse-item>
+      <el-collapse-item name="formUrl" v-if="elementType === 'UserTask' || elementType === 'Process'">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>表单</div>
+        <element-form-url :id="elementId" :type="elementType" />
+      </el-collapse-item>
+      <el-collapse-item name="candidateUsers" v-if="elementType === 'UserTask'" key="candidateUsers">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i><el-badge is-dot class="item" :hidden="!hasCandidatesUsers">节点人员</el-badge></div>
+        <candidate-users :id="elementId" :type="elementType" @computedCandidates="computedCandidates"/>
+      </el-collapse-item>
+      <el-collapse-item name="in" v-if="elementType === 'CallActivity'">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>输入</div>
+        <in-out :id="elementId" :type="elementType" inOrOut="In" />
+      </el-collapse-item>
+      <el-collapse-item name="out" v-if="elementType === 'CallActivity'">
+        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>输出</div>
+        <in-out :id="elementId" :type="elementType" inOrOut="Out" />
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
       </el-collapse-item>
       <el-collapse-item name="candidateUsers" v-if="showConfig.candidateUsers">
         <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i><el-badge is-dot class="item" :hidden="!hasCandidatesUsers">节点人员</el-badge></div>
@@ -65,16 +101,24 @@
       <el-collapse-item name="extensions" v-if="showCoinfg.extensions" key="extensions">
         <div slot="title" class="panel-tab__title"><i class="el-icon-circle-plus"></i>扩展属性</div>
         <element-properties :id="elementId" :type="elementType" />
+<<<<<<< HEAD
       </el-collapse-item> -->
+=======
+      </el-collapse-item>
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
     </el-collapse>
   </div>
 </template>
 <script>
 import ElementBaseInfo from "./property/base/ElementBaseInfo";
+<<<<<<< HEAD
 import ReceiveTask from "./property/task/ReceiveTask";
 import ScriptTask from "./property/task/ScriptTask";
 import UserTask from "./property/task/UserTask";
 
+=======
+import ElementTask from "./property/task/ElementTask";
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
 import ElementMultiInstance from "./property/multi-instance/ElementMultiInstance";
 import FlowCondition from "./property/flow-condition/FlowCondition";
 // import SignalAndMassage from "./signal-message/SignalAndMessage";
@@ -86,9 +130,12 @@ import CandidateUsers from "./property/candidateUsers/CandidateUsers";
 import ElementFormUrl from "./property/formUrl/ElementFormUrl";
 import InOut from "./property/inOut/InOut";
 import { NodeName } from "../../package/process-designer/plugins/translate/zh";
+<<<<<<< HEAD
 import showConfig from '../common/showConfig'
 import { ComponentName } from '../common/showConfig'
 
+=======
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
 /**
  * 侧边栏
  */
@@ -102,9 +149,13 @@ export default {
     // SignalAndMassage,
     FlowCondition,
     ElementMultiInstance,
+<<<<<<< HEAD
     ReceiveTask,
     ScriptTask,
     UserTask,
+=======
+    ElementTask,
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
     ElementBaseInfo,
     CandidateUsers,
     ElementFormUrl,
@@ -145,6 +196,7 @@ export default {
   },
   computed: {
     nodeName() {
+<<<<<<< HEAD
       if (this.element) {
         return NodeName[this.elementType] || this.elementType
       }
@@ -164,6 +216,12 @@ export default {
         return showConfig[this.elementType] || {}
       }
       return {}
+=======
+      if (this.elementType) {
+        return NodeName[this.elementType] || this.elementType;
+      }
+      return ''
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
     }
   },
   watch: {
@@ -253,8 +311,21 @@ export default {
       // console.log(hasCandidatesUsers);
       // this.hasCandidatesUsers = hasCandidatesUsers;
     },
+<<<<<<< HEAD
     getComponentName(val){
       return ComponentName[val];
+=======
+    beforeDestroy() {
+      window.bpmnInstances = null;
+    },
+    computedCandidates(hasCandidatesUsers) {
+      console.log(hasCandidatesUsers);
+      this.hasCandidatesUsers = hasCandidatesUsers;
+    },
+    updateBusinessObject(obj) {
+      console.log(obj);
+      this.elementBusinessObject[obj.key] = obj.val;
+>>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
     }
   }
 };

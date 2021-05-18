@@ -2,117 +2,127 @@
   <div class="panel-tab__content">
     <el-form size="mini" label-width="90px" @submit.native.prevent>
       <el-form-item label="类型">
-        <el-select v-model="type" @change="changeLoopCharacteristicsType">
+        <el-select v-model="loopCharacteristics" @change="changeLoopCharacteristicsType">
+          <!--bpmn:MultiInstanceLoopCharacteristics-->
           <el-option label="并行" value="ParallelMultiInstance" />
           <el-option label="串行" value="SequentialMultiInstance" />
           <el-option label="无" value="Null" />
         </el-select>
       </el-form-item>
-      <template v-if="type === 'ParallelMultiInstance' || type === 'SequentialMultiInstance'">
+      <template v-if="loopCharacteristics === 'ParallelMultiInstance' || loopCharacteristics === 'SequentialMultiInstance'">
         <el-form-item label="集合" key="collection">
-          <el-input v-model="formData.collection" clearable />
+          <el-input v-model="loopInstanceForm.collection" clearable @change="updateLoopBase" />
         </el-form-item>
         <el-form-item label="元素变量" key="elementVariable">
-          <el-input v-model="formData.elementVariable" clearable />
+          <el-input v-model="loopInstanceForm.elementVariable" clearable @change="updateLoopBase" />
         </el-form-item>
         <el-form-item label="循环基数" key="loopCardinality">
-          <el-input v-model="formData.loopCardinality" clearable />
+          <el-input v-model="loopInstanceForm.loopCardinality" clearable @change="updateLoopCardinality" />
         </el-form-item>
         <el-form-item label="完成条件" key="completionCondition">
-          <el-input v-model="formData.completionCondition" clearable />
+          <el-input v-model="loopInstanceForm.completionCondition" clearable @change="updateLoopCondition" />
         </el-form-item>
       </template>
     </el-form>
   </div>
 </template>
-<script>
-import mixinPanel from '../../../common/mixinPanel'
-import { formatJsonKeyValue } from '../../../common/parseElement'
 
+<script>
 export default {
   name: "ElementMultiInstance",
-  mixins: [mixinPanel],
+  props: {
+    businessObject: Object,
+    type: String
+  },
+  inject: {
+    prefix: "prefix"
+  },
   data() {
     return {
-      type: 'Null',
-      formData: {}
-    }
+      loopCharacteristics: "",
+      //默认配置，用来覆盖原始不存在的选项，避免报错
+      defaultLoopInstanceForm: {
+        completionCondition: "",
+        loopCardinality: ""
+      },
+      loopInstanceForm: {}
+    };
   },
   watch: {
-    'formData.collection': function(val) {
-      this.updateElement('collection',val)
-    },
-    'formData.elementVariable': function(val) {
-      this.updateElement('elementVariable',val)
-    },
-    'formData.loopCardinality': function(val) {
-      this.updateElement('loopCardinality',this.createCardinality(val))
-    },
-    'formData.completionCondition': function(val) {
-      this.updateElement('completionCondition',this.createCompletionCondition(val))
-    }
-  }, 
-  mounted() {
-    if (this.element.businessObject.loopCharacteristics) {
-      const cache = JSON.parse(JSON.stringify(this.element.businessObject.loopCharacteristics ?? {}))
-      cache.completionCondition = cache.completionCondition?.body
-      cache.loopCardinality = cache.loopCardinality?.body
-      cache.isSequential = cache.isSequential ?? false
-      if (cache.isSequential) {
-        this.type = "SequentialMultiInstance"
-      } else {
-        this.type = "ParallelMultiInstance"
+    businessObject: {
+      immediate: true,
+      handler(val) {
+        this.bpmnElement = window.bpmnInstances.bpmnElement;
+        this.getElementLoop(val);
       }
-      this.formData = formatJsonKeyValue(cache)
     }
   },
   methods: {
-    updateElement(key,val) {
-      let loopCharacteristics = this.element.businessObject.get('loopCharacteristics')
-      if (!loopCharacteristics) {
-        loopCharacteristics = this.modeler.get('moddle').create('bpmn:MultiInstanceLoopCharacteristics')
+    getElementLoop(businessObject) {
+      if (!businessObject.loopCharacteristics) {
+        this.loopCharacteristics = "Null";
+        this.loopInstanceForm = {};
+        return;
       }
-      loopCharacteristics[key] = val
-      this.updateProperties({ loopCharacteristics: loopCharacteristics })
+      if (businessObject.loopCharacteristics.isSequential) {
+        this.loopCharacteristics = "SequentialMultiInstance";
+      } else {
+        this.loopCharacteristics = "ParallelMultiInstance";
+      }
+      // 合并配置
+      this.loopInstanceForm = {
+        ...this.defaultLoopInstanceForm,
+        ...businessObject.loopCharacteristics,
+        completionCondition: businessObject.loopCharacteristics?.completionCondition?.body ?? "",
+        loopCardinality: businessObject.loopCharacteristics?.loopCardinality?.body ?? ""
+      };
+      // 保留当前元素 businessObject 上的 loopCharacteristics 实例
+      this.multiLoopInstance = window.bpmnInstances.bpmnElement.businessObject.loopCharacteristics;
     },
     changeLoopCharacteristicsType(type) {
+      // this.loopInstanceForm = { ...this.defaultLoopInstanceForm }; // 切换类型取消原表单配置
+      // 取消多实例配置
       if (type === "Null") {
-        this.updateProperties({ loopCharacteristics: null })
+        window.bpmnInstances.modeling.updateProperties(this.bpmnElement, { loopCharacteristics: null });
         return;
       }
       // 时序
-      let loopCharacteristics = this.element.businessObject.get('loopCharacteristics')
-      if (!loopCharacteristics) {
-        loopCharacteristics = this.modeler.get('moddle').create('bpmn:MultiInstanceLoopCharacteristics')
-      }
-      loopCharacteristics['collection'] = this.formData.collection
-      loopCharacteristics['elementVariable'] = this.formData.elementVariable
-      loopCharacteristics['completionCondition'] =  this.createCompletionCondition(this.formData.completionCondition)
-      loopCharacteristics['loopCardinality'] =  this.createCardinality(this.formData.loopCardinality)
       if (type === "SequentialMultiInstance") {
-        loopCharacteristics['isSequential'] = true
+        this.multiLoopInstance = window.bpmnInstances.moddle.create("bpmn:MultiInstanceLoopCharacteristics", { isSequential: true });
       } else {
-        delete loopCharacteristics.isSequential
+        this.multiLoopInstance = window.bpmnInstances.moddle.create("bpmn:MultiInstanceLoopCharacteristics");
       }
-      this.updateProperties({ loopCharacteristics: loopCharacteristics });
+      window.bpmnInstances.modeling.updateProperties(this.bpmnElement, {
+        loopCharacteristics: this.multiLoopInstance
+      });
     },
     // 循环基数
-    createCardinality(val) {
+    updateLoopCardinality(cardinality) {
       let loopCardinality = null;
-      if (val) {
-        loopCardinality = this.modeler.get('moddle').create('bpmn:FormalExpression', { body: val })
+      if (cardinality && cardinality.length) {
+        loopCardinality = window.bpmnInstances.moddle.create("bpmn:FormalExpression", { body: cardinality });
       }
-      return loopCardinality;
-
+      window.bpmnInstances.modeling.updateModdleProperties(this.bpmnElement, this.multiLoopInstance, { loopCardinality });
     },
     // 完成条件
-    createCompletionCondition(val) {
+    updateLoopCondition(condition) {
       let completionCondition = null;
-      if (val) {
-        completionCondition = this.modeler.get('moddle').create('bpmn:Expression', { body: val })
+      if (condition && condition.length) {
+        completionCondition = window.bpmnInstances.moddle.create("bpmn:FormalExpression", { body: condition });
       }
-      return completionCondition;
+      window.bpmnInstances.modeling.updateModdleProperties(this.bpmnElement, this.multiLoopInstance, { completionCondition });
+    },
+    // 直接更新的基础信息
+    updateLoopBase() {
+      window.bpmnInstances.modeling.updateModdleProperties(this.bpmnElement, this.multiLoopInstance, {
+        collection: this.loopInstanceForm.collection || null,
+        elementVariable: this.loopInstanceForm.elementVariable || null
+      });
     }
+  },
+  beforeDestroy() {
+    this.multiLoopInstance = null;
+    this.bpmnElement = null;
   }
-}
+};
 </script>
