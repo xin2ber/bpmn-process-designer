@@ -1,7 +1,6 @@
 <template>
   <div class="panel-tab__content">
     <el-table :data="formData.candidates" size="mini" max-height="240" border fit>
-
       <el-table-column label="类型">
         <template slot-scope="scope">
           <el-select v-model="scope.row.type" class="select" placeholder="请选择">
@@ -89,8 +88,8 @@ export default {
       this.formData.candidates.splice(index, 1);
     },
     updateElement() {
+      let extensionElements = this.element.businessObject.get('extensionElements')
       if (this.formData.candidates?.length) {
-        let extensionElements = this.element.businessObject.get('extensionElements')
         if (!extensionElements) {
           extensionElements = this.modeler.get('moddle').create('bpmn:ExtensionElements')
         }
@@ -98,20 +97,25 @@ export default {
         extensionElements.values = extensionElements.values?.filter(item => item.$type !== 'flowable:Candidates') ?? []
         const candidates = this.modeler.get('moddle').create('flowable:Candidates')
         this.formData.candidates.forEach(item => {
-          const candidate = this.modeler.get('moddle').create('flowable:Candidate')
-          candidate['type'] = item.type
-          candidate['value'] = item.value
-          candidates.get('candidates').push(candidate)
+          if (item.type && item.value) {
+            const candidate = this.modeler.get('moddle').create('flowable:Candidate')
+            candidate['type'] = item.type
+            candidate['value'] = item.value
+            candidates.get('candidates').push(candidate)
+          }
         })
-        extensionElements.get('values').push(candidates)
-        this.updateProperties({ extensionElements: extensionElements })
-      } else {
-        const extensionElements = this.element.businessObject[`extensionElements`]
-        if (extensionElements) {
-          extensionElements.values = extensionElements.values?.filter(item => item.$type !== 'flowable:Candidates') ?? []
+        if (candidates.get('candidates')?.length) {
+          extensionElements.get('values').push(candidates)
+          this.updateProperties({ extensionElements: extensionElements })
+          return;
+        }
+      } 
+      if (extensionElements) {
+        extensionElements.values = extensionElements.values?.filter(item => item.$type !== 'flowable:Candidates') ?? [];
+        if (!extensionElements.values?.length) {
+          this.updateProperties({ extensionElements: null })
         }
       }
-      this.$emit('computedCandidates')
     }
   }
 };

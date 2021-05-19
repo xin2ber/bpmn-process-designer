@@ -238,7 +238,6 @@ export default {
 };
 
 export const NodeName = {
-<<<<<<< HEAD
   'bpmn:Process': '流程',
   'bpmn:StartEvent': '开始事件',
   'bpmn:IntermediateThrowEvent': '中间事件',
@@ -259,26 +258,4 @@ export const NodeName = {
   'bpmn:EventBasedGateway': '事件网关',
   'bpmn:CallActivity': '调用活动',
   'bpmn:SubProcess': '子流程'
-=======
-  'Process': '流程',
-  'StartEvent': '开始事件',
-  'IntermediateThrowEvent': '中间事件',
-  'Task': '任务',
-  'SendTask': '发送任务',
-  'ReceiveTask': '接收任务',
-  'UserTask': '用户任务',
-  'ManualTask': '手工任务',
-  'BusinessRuleTask': '业务规则任务',
-  'ServiceTask': '服务任务',
-  'ScriptTask': '脚本任务',
-  'EndEvent': '结束事件',
-  'SequenceFlow': '流程线',
-  'ExclusiveGateway': '互斥网关',
-  'ParallelGateway': '并行网关',
-  'InclusiveGateway': '相容网关',
-  'ComplexGateway': '复杂网关',
-  'EventBasedGateway': '事件网关',
-  'CallActivity': '调用活动',
-  'SubProcess': '子流程'
->>>>>>> b4e6245806c9dc7c012885bffa8ba9d37c92b0c6
 };

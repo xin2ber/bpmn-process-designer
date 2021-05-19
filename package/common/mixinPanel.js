@@ -15,6 +15,11 @@ export default {
     updateProperties(properties) {
       const modeling = this.modeler.get('modeling')
       modeling.updateProperties(this.element, properties)
+    },
+    updateVal(key,val) {
+      let properties = {}
+      properties[key] = val || null
+      this.updateProperties(properties)
     }
   },
   computed: {

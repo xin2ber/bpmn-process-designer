@@ -38,11 +38,13 @@ export default {
   },
   data() {
     return {
-      formData: {}
+      formData: {
+        inOuts: []
+      }
     };
   },
 
- mounted() {
+  mounted() {
     this.formData.inOuts = this.element.businessObject.extensionElements?.values
       .filter(item => item.$type === `flowable:${this.type}`)
       .map(item => {
@@ -50,13 +52,14 @@ export default {
           source: item.source || item.sourceExpression,
           target: item.target || item.targetExpression
         }
-      }) ?? []
+      }) ?? [];
   },
   watch: {
     'formData.inOuts': {
       immediate: false,
       deep: true,
       handler(val) {
+        console.log(val);
         this.updateElement();
       }
     }
@@ -69,32 +72,36 @@ export default {
       this.formData.inOuts.splice(index, 1);
     },
     updateElement() {
+        let extensionElements = this.element.businessObject?.extensionElements;
       if (this.formData.inOuts?.length) {
-        let extensionElements = this.element.businessObject.extensionElements;
         if (!extensionElements) {
           extensionElements = this.modeler.get('moddle').create("bpmn:ExtensionElements");
         }
         // 清除旧值
         extensionElements.values = extensionElements.values?.filter(item => item.$type !== `flowable:${this.type}`) ?? []
-        this.elementPropertyList.forEach(item => {
+        this.formData.inOuts.forEach(item => {
           const inOut = this.modeler.get('moddle').create(`flowable:${this.type}`)
-          if (/\$+\{+.+\}/.test(item.source)) {
+          if(item.source && item.target) {
+            if (/\$+\{+.+\}/.test(item.source)) {
             inOut['sourceExpression'] = item.source
-          } else {
-            inOut['source'] = item.source
+            } else {
+              inOut['source'] = item.source
+            }
+            if (/\$+\{+.+\}/.test(item.target)) {
+              inOut['targetExpression'] = item.target
+            } else {
+              inOut['target'] = item.target
+            }
+            extensionElements.values.push(inOut)
           }
-          if (/\$+\{+.+\}/.test(item.target)) {
-            inOut['targetExpression'] = item.target
-          } else {
-            inOut['target'] = item.target
-          }
-          extensionElements.values.push(inOut)
         })
         this.updateProperties({ extensionElements: extensionElements })
-      } else {
-        const extensionElements = this.element.businessObject?.extensionElements;
-        if (extensionElements) {
-          extensionElements.values = extensionElements.values?.filter(item => item.$type !== `flowable:${this.type}`) ?? []
+        return;
+      } 
+      if (extensionElements) {
+        extensionElements.values = extensionElements.values?.filter(item => item.$type !== `flowable:${this.type}`) ?? []
+        if (!extensionElements.values?.length) {
+          this.updateProperties({ extensionElements: null })
         }
       }
     }

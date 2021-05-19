@@ -27,13 +27,13 @@ export default {
   },
   watch: {
     'formData.dueDate': function(val) {
-      this.updateProperties({ dueDate: val })
+      this.updateVal( 'dueDate',val )
     },
     'formData.followUpDate': function(val) {
-      this.updateProperties({ followUpDate: val })
+      this.updateVal( 'followUpDate',val )
     },
     'formData.priority': function(val) {
-      this.updateProperties({ priority: val })
+      this.updateVal( 'priority',val )
     }
   },
   created() {

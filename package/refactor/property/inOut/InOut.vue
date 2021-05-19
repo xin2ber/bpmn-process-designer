@@ -1,10 +1,10 @@
 <template>
  <el-tabs type="border-card">
   <el-tab-pane label="输入">
-    <parameters tpye = 'in' :modeler='modeler' :element='element'/>
+    <parameters type='In' :modeler='modeler' :element='element'/>
   </el-tab-pane>
   <el-tab-pane label="输出">
-    <parameters tpye = 'out' :modeler='modeler' :element='element'/>
+    <parameters type='Out' :modeler='modeler' :element='element'/>
   </el-tab-pane>
 </el-tabs>
 </template>
