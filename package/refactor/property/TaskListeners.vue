@@ -20,16 +20,16 @@
           <el-input v-model="scope.row.className" placeholder="请输入" />
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="50px">
-        <template slot-scope="{ $index }">
-          <el-button size="mini" type="text" style="color: #ff4d4f" @click="remove($index)">移除</el-button>
+      <el-table-column label="字段" width="50px">
+        <template slot-scope="scope">
+          <el-badge :value="scope.row.params ? scope.row.params.length : 0" type="primary" class="item">
+            <el-button size="mini" type="text" @click="configParam(scope.$index)">配置</el-button>
+          </el-badge>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="50px">
-        <template slot-scope="scope">
-          <el-badge :value="scope.row.params ? scope.row.params.length : 0" type="primary">
-            <el-button size="mini" type="text" @click="configParam(scope.$index)">配置</el-button>
-          </el-badge>
+        <template slot-scope="{ $index }">
+          <el-button size="mini" type="text" style="color: #ff4d4f" @click="remove($index)" class="item">移除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -38,16 +38,13 @@
     </div>
 
     <!-- 监听器 编辑/创建 部分 -->
-    <el-drawer :visible.sync="showParamDialog" title="任务监听器" size="500px" append-to-body destroy-on-close @close="finishConfigParam">
-      <listener-param v-if="showParamDialog" :value="formData.taskListener[nowIndex].params" />
-    </el-drawer>
+      <listener-param v-if="showParamDialog" :value="formData.taskListener[nowIndex].params" @close="finishConfigParam" />
 
   </div>
 </template>
 <script>
 import mixinPanel from '../../common/mixinPanel'
 import ListenerParam from './ListenerParam';
-import { eventType, fieldType } from "./utilSelf";
 
 export default {
   components: { ListenerParam },
@@ -58,13 +55,18 @@ export default {
       formData: {
         taskListener: []
       },
-      eventType: eventType,
+      eventType: {
+        create: "创建",
+        assignment: "指派",
+        complete: "完成",
+        delete: "删除",
+        all: "所有"
+      },
       listenerType: {
-        class: "Java 类",
+        class: "类",
         expression: "表达式",
         delegateExpression: "代理表达式",
       },
-      fieldType: fieldType,
       showParamDialog: false
     };
   },
@@ -78,7 +80,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.eventType)
     this.formData.taskListener = this.element.businessObject.extensionElements?.values
       .filter(item => item.$type === 'flowable:TaskListener')
       .map(item => {
@@ -111,7 +112,6 @@ export default {
       this.formData.taskListener.splice(index, 1);
     },
     configParam(index) {
-      console.log(index);
       this.nowIndex = index
       const nowObj = this.formData.taskListener[index]
       if (!nowObj.params) {
@@ -120,7 +120,6 @@ export default {
       this.showParamDialog = true
     },
     finishConfigParam(param) {
-      console.log(121212121212)
       this.showParamDialog = false
       // hack 数量不更新问题
       const cache = this.formData.taskListener[this.nowIndex]
@@ -129,9 +128,7 @@ export default {
       this.nowIndex = null
     },
     updateElement() {
-      console.log(this.formData.taskListener)
       if (this.formData.taskListener?.length) {
-        console.log(this.formData.taskListener);
         let extensionElements = this.element.businessObject.get('extensionElements')
         if (!extensionElements) {
           extensionElements = this.modeler.get('moddle').create('bpmn:ExtensionElements')
@@ -142,7 +139,6 @@ export default {
           const taskListener = this.modeler.get('moddle').create('flowable:TaskListener')
           taskListener['event'] = item.event
           taskListener[item.type] = item.className
-          console.log(taskListener)
           if (item.params && item.params.length) {
             item.params.forEach(field => {
               const fieldElement = this.modeler.get('moddle').create('flowable:Field')
@@ -167,3 +163,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+  .item{
+    margin-top: 8px;
+    margin-right: 40px;
+  }
+</style>

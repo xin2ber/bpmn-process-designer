@@ -32,7 +32,7 @@ import mixinPanel from '../../common/mixinPanel'
 import { formatJsonKeyValue } from '../../common/parseElement'
 
 export default {
-  name : "ElementMultiInstance",
+  name : "MultiInstance",
   mixins: [mixinPanel],
   data() {
     return {
@@ -41,7 +41,6 @@ export default {
     }
   },
   created() {
-    console.log(121212);
     if (this.element.businessObject.loopCharacteristics) {
       const cache = JSON.parse(JSON.stringify(this.element.businessObject.loopCharacteristics ?? {}))
       cache.completionCondition = cache.completionCondition?.body
@@ -68,7 +67,6 @@ export default {
       this.updateElement('completionCondition',this.createElement(val))
     },
     'element.businessObject.loopCharacteristics.isSequential': function(val) {
-      console.log(val)
       if(val === true) {
         this.type = 'SequentialMultiInstance'
         this.changeType(this.type)
@@ -89,7 +87,6 @@ export default {
       this.updateProperties({ loopCharacteristics: loopCharacteristics })
     },
     changeType(type) {
-      console.log(type)
       if (type === "Null") {
         this.updateProperties({ loopCharacteristics: null })
         return;

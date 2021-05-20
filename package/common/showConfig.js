@@ -1,18 +1,18 @@
 export default {
   'bpmn:Process': {
-    components: ['ElementBaseInfo','ElementFormUrl'],
+    components: ['BaseInfo','FormUrl'],
     processCategory: true,
     versionTag: false,
     documentation:true
   },
   'bpmn:EndEvent': {},
   'bpmn:StartEvent': {
-    components: ['ElementBaseInfo'],
+    components: ['BaseInfo'],
     initiator: true,
     formKey: true
   },
   'bpmn:UserTask': {
-    components: ['ElementBaseInfo','ElementFormUrl','UserTask','CandidateUsers','ElementMultiInstance','TaskListeners'],
+    components: ['BaseInfo','FormUrl','UserTask','CandidateUsers','MultiInstance','TaskListeners'],
     userType: true,
     assignee: true,
     candidateUsers: true,
@@ -31,7 +31,7 @@ export default {
     documentation:true
   },
   'bpmn:CallActivity': {
-    components: ['ElementBaseInfo','InOut','ElementMultiInstance','CallActivity'],
+    components: ['BaseInfo','InOut','MultiInstance','CallActivity'],
     processInstanceName: true,
     calledElement: true,
     inOutParameters: true,
@@ -39,7 +39,7 @@ export default {
     documentation:true
   },
   'bpmn:ServiceTask': {
-    components: ['ElementBaseInfo','ServiceTask'],
+    components: ['BaseInfo','ServiceTask'],
     async: true,
     skipExpression: true,
     isForCompensation: true,
@@ -48,32 +48,32 @@ export default {
     documentation:true
   },
   'bpmn:ScriptTask': {
-    components: ['ElementBaseInfo','ScriptTask'],
+    components: ['BaseInfo','ScriptTask'],
     async: true,
     isForCompensation: true,
     autoStoreVariables: true,
     documentation:true
   },
   'bpmn:ManualTask': {
-    components: ['ElementBaseInfo','ManualTask'],
+    components: ['BaseInfo','ManualTask'],
     async: true,
     isForCompensation: true,
     documentation:true
   },
   'bpmn:ReceiveTask': {
-    components: ['ElementBaseInfo','ReceiveTask'],
+    components: ['BaseInfo','ReceiveTask'],
     async: true,
     isForCompensation: true,
     documentation:true
   },
   'bpmn:SendTask': {
-    components: ['ElementBaseInfo','SendTask'],
+    components: ['BaseInfo','SendTask'],
     async: true,
     isForCompensation: true,
     documentation:true
   },
   'bpmn:BusinessRuleTask': {
-    components: ['ElementBaseInfo','BusinessRuleTask'],
+    components: ['BaseInfo','BusinessRuleTask'],
     async: true,
     isForCompensation: true,
     ruleVariablesInput: true,
@@ -83,12 +83,12 @@ export default {
     documentation:true
   },
   'bpmn:SequenceFlow': {
-    components: ['ElementBaseInfo','FlowCondition']
+    components: ['BaseInfo','Condition']
   }
 }
 
 export const ComponentName = {
-  'ElementBaseInfo': {
+  'BaseInfo': {
     name: '基本信息',
     icon: 'el-icon-info'
   },
@@ -104,7 +104,7 @@ export const ComponentName = {
     name: '任务属性',
     icon: ''
   },
-  'ElementMultiInstance': {
+  'MultiInstance': {
     name: '多实例',  
     icon: 'el-icon-s-cooperation'
   },
@@ -112,7 +112,7 @@ export const ComponentName = {
     name: '节点人员', 
     icon: 'el-icon-user-solid'
   },
-  'ElementFormUrl':{
+  'FormUrl':{
     name:  '表单Url',
     icon: 'el-icon-s-order'
   },
@@ -120,7 +120,7 @@ export const ComponentName = {
     name:  '输入/输出',   
     icon: 'el-icon-s-help'
   },
-  'FlowCondition':{
+  'Condition':{
     name:  '流转条件',   
     icon: 'el-icon-s-help'
   },
@@ -130,7 +130,7 @@ export const ComponentName = {
   },
   'TaskListeners':{
     name: '任务监听器',
-    icon: 'el-icon-view'
+    icon: 'el-icon-message-solid'
   }
 
 }

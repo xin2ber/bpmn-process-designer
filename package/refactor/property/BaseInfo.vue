@@ -37,7 +37,7 @@ import mixinPanel from '../../common/mixinPanel'
 import { commonParse } from '../../common/parseElement'
 
 export default {
-  name: "ElementBaseInfo",
+  name: "BaseInfo",
   mixins: [mixinPanel],
   data() {
     return {

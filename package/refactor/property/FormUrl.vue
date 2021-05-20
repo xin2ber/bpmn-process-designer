@@ -1,16 +1,16 @@
 <template>
   <div class="panel-tab__content">
     <el-form size="mini" label-width="105px" @submit.native.prevent>
-      <el-form-item label="PC端URL">
+      <el-form-item label="PC端">
         <el-input v-model="formData.pcUrl" clearable/>
       </el-form-item>
-      <el-form-item label="PC端详情URL">
+      <el-form-item label="PC端详情">
         <el-input v-model="formData.pcInfoUrl" clearable/>
       </el-form-item>
-      <el-form-item label="移动URL">
+      <el-form-item label="移动端">
         <el-input v-model="formData.mobileUrl" clearable/>
       </el-form-item>
-      <el-form-item label="移动详情URL">
+      <el-form-item label="移动端详情">
         <el-input v-model="formData.mobileInfoUrl" clearable/>
       </el-form-item>
     </el-form>

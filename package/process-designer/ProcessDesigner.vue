@@ -104,12 +104,7 @@ import tokenSimulation from "bpmn-js-token-simulation";
 // 标签解析构建器
 // import bpmnPropertiesProvider from "bpmn-js-properties-panel/lib/provider/bpmn";
 // 标签解析 Moddle
-import camundaModdleDescriptor from "./plugins/descriptor/camundaDescriptor.json";
-import activitiModdleDescriptor from "./plugins/descriptor/activitiDescriptor.json";
 import flowableModdleDescriptor from "./plugins/descriptor/flowableDescriptor.json";
-// 标签解析 Extension
-import camundaModdleExtension from "./plugins/extension-moddle/camunda";
-import activitiModdleExtension from "./plugins/extension-moddle/activiti";
 import flowableModdleExtension from "./plugins/extension-moddle/flowable";
 // 引入json转换与高亮
 import convert from "xml-js";
@@ -258,16 +253,10 @@ export default {
       // if (this.prefix === "bpmn") {
       //   Modules.push(bpmnModdleExtension);
       // }
-      if (this.prefix === "camunda") {
-        Modules.push(camundaModdleExtension);
-      }
+
       if (this.prefix === "flowable") {
         Modules.push(flowableModdleExtension);
       }
-      if (this.prefix === "activiti") {
-        Modules.push(activitiModdleExtension);
-      }
-
       return Modules;
     },
     moddleExtensions() {
@@ -283,18 +272,9 @@ export default {
           Extensions[key] = this.moddleExtension[key];
         }
       }
-
-      // 根据需要的 "流程类型" 设置 对应的解析文件
-      if (this.prefix === "activiti") {
-        Extensions.activiti = activitiModdleDescriptor;
-      }
       if (this.prefix === "flowable") {
         Extensions.flowable = flowableModdleDescriptor;
       }
-      if (this.prefix === "camunda") {
-        Extensions.camunda = camundaModdleDescriptor;
-      }
-
       return Extensions;
     }
   },
@@ -501,7 +481,6 @@ export default {
     },
     openSubmitDialog() {
       this.submitDialogFlag = true;
-      console.log(this.submitDialogFlag);
     },
     async submit(data) {
       data.xml = await this.saveXML()

@@ -12,78 +12,22 @@
             />
           </el-collapse-item>
         </template>
-
-
-      <!-- <el-collapse-item v-if="showConfig.base" name="base">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-info"></i>基本信息</div>
-        <element-base-info v-if="element" :element = "element" :modeler="bpmnModeler" :id-edit-disabled="idEditDisabled" />
-      </el-collapse-item> -->
-      <!-- <el-collapse-item name="condition" v-if="elementType === 'Process'" key="message">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-comment"></i>消息与信号</div>
-        <signal-and-massage />
-      </el-collapse-item> -->
-      <!-- <el-collapse-item name="condition" v-if="showConfig.condition" key="condition">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-promotion"></i>流转条件</div>
-        <flow-condition :business-object="elementBusinessObject" :type="elementType" />
-      </el-collapse-item> -->
-      <!-- <el-collapse-item name="condition" v-if="formVisible" key="form">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-order"></i>表单</div>
-        <element-form :id="elementId" :type="elementType" />
-      </el-collapse-item> -->
-      <!-- <el-collapse-item name="task" v-if="showConfig.task" key="task">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>任务配置</div>
-        <element-task :id="elementId" :type="elementType" />
-      </el-collapse-item>
-      <el-collapse-item name="formUrl" v-if="showConfig.form">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>表单</div>
-        <element-form-url :id="elementId" :type="elementType" />
-      </el-collapse-item>
-      <el-collapse-item name="candidateUsers" v-if="showConfig.candidateUsers">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i><el-badge is-dot class="item" :hidden="!hasCandidatesUsers">节点人员</el-badge></div>
-        <candidate-users v-if="element" :element = "element" :modeler="bpmnModeler" @computedCandidates="computedCandidates"/>
-      </el-collapse-item>
-      <el-collapse-item name="in" v-if="showConfig.in" key="in">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>输入</div>
-        <in-out :id="elementId" :type="elementType" inOrOut="In" />
-      </el-collapse-item>
-      <el-collapse-item name="out" v-if="showConfig.out" key="out">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>输出</div>
-        <in-out :id="elementId" :type="elementType" inOrOut="Out" />
-      </el-collapse-item>
-      <el-collapse-item name="multiInstance" v-if="showConfig.multiInstance" key="multiInstance">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-help"></i>多实例</div>
-        <element-multi-instance :business-object="elementBusinessObject" :type="elementType" />
-      </el-collapse-item>
-      <el-collapse-item name="listeners" v-if="showConfig.listeners" key="listeners">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i>执行监听器</div>
-        <element-listeners :id="elementId" :type="elementType" />
-      </el-collapse-item>
-      <el-collapse-item name="taskListeners" v-if="showConfig.taskListeners" key="taskListeners">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i>任务监听器</div>
-        <user-task-listeners :id="elementId" :type="elementType" />
-      </el-collapse-item>
-      <el-collapse-item name="extensions" v-if="showCoinfg.extensions" key="extensions">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-circle-plus"></i>扩展属性</div>
-        <element-properties :id="elementId" :type="elementType" />
-      </el-collapse-item> -->
     </el-collapse>
   </div>
 </template>
 <script>
-import ElementBaseInfo from "./property/ElementBaseInfo";
+import BaseInfo from "./property/BaseInfo";
 import ReceiveTask from "./property/ReceiveTask";
 import ScriptTask from "./property/ScriptTask";
 import UserTask from "./property/UserTask";
 import TaskListeners from "./property/TaskListeners";
 
-import ElementMultiInstance from "./property/ElementMultiInstance";
-import FlowCondition from "./property/FlowCondition";
-// import SignalAndMassage from "./signal-message/SignalAndMessage";
+import MultiInstance from "./property/MultiInstance.vue";
+import Condition from "./property/Condition";
 import ElementListeners from "./property/ElementListeners";
 import ElementProperties from "./property/ElementProperties";
-// import ElementForm from "./property/form/ElementForm";
 import CandidateUsers from "./property/CandidateUsers";
-import ElementFormUrl from "./property/ElementFormUrl";
+import FormUrl from "./property/FormUrl";
 import InOut from "./property/InOut";
 import CallActivity from "./property/CallActivity";
 import { NodeName } from "../../package/process-designer/plugins/translate/zh";
@@ -96,18 +40,16 @@ import { ComponentName } from '../common/showConfig'
 export default {
   name: "MyPropertiesPanel",
   components: {
-    // ElementForm,
     ElementProperties,
     ElementListeners,
-    // SignalAndMassage,
-    FlowCondition,
-    ElementMultiInstance,
+    Condition,
+    MultiInstance,
     ReceiveTask,
     ScriptTask,
     UserTask,
-    ElementBaseInfo,
+    BaseInfo,
     CandidateUsers,
-    ElementFormUrl,
+    FormUrl,
     InOut,
     CallActivity,
     TaskListeners
@@ -137,7 +79,7 @@ export default {
   data() {
     return {
       element: null,
-      activeTab: "ElementBaseInfo",
+      activeTab: "BaseInfo",
       elementId: "",
       elementBusinessObject: {}, // 元素 businessObject 镜像，提供给需要做判断的组件使用
       conditionFormVisible: false, // 流转条件设置
@@ -192,7 +134,6 @@ export default {
     initElement() {
       this.bpmnModeler.on("element.changed", ({ element }) => {
         // 保证 修改 "默认流转路径" 类似需要修改多个元素的事件发生的时候，更新表单的元素与原选中元素不一致。
-          console.log(element);
         
       })
       this.bpmnModeler.on('root.added', e => {
@@ -206,7 +147,6 @@ export default {
       this.bpmnModeler.on('element.click', e => {
         const { element } = e
         if (element.type === 'bpmn:Process') {
-            console.log(element);
             this.$nextTick().then(() => {
             this.element = element
           })
@@ -217,45 +157,12 @@ export default {
         this.element = null
         const element = e.newSelection[0]
         if (element) {
-            console.log(element);
             this.$nextTick().then(() => {
             this.element = element
           })
         }
       })
     },
-    // 初始化数据
-    // initFormOnChanged(element) {
-    //   let activatedElement = element;
-    //   if (!activatedElement) {
-    //     activatedElement =
-    //       window.bpmnInstances.elementRegistry.find(el => el.type === "bpmn:Process") ??
-    //       window.bpmnInstances.elementRegistry.find(el => el.type === "bpmn:Collaboration");
-    //   }
-    //   if (!activatedElement) return;
-    //   console.log(`
-    //           ----------
-    //   select element changed:
-    //             id:  ${activatedElement.id}
-    //           type:  ${activatedElement.businessObject.$type}
-    //           ----------
-    //           `);
-    //   console.log("businessObject: ", activatedElement.businessObject);
-    //   window.bpmnInstances.bpmnElement = activatedElement;
-    //   this.bpmnElement = activatedElement;
-    //   this.elementId = activatedElement.id;
-    //   this.elementType = activatedElement.type.split(":")[1];
-    //   this.elementBusinessObject = JSON.parse(JSON.stringify(activatedElement.businessObject));
-    //   this.conditionFormVisible = !!(
-    //     this.elementType === "SequenceFlow" &&
-    //     activatedElement.source &&
-    //     activatedElement.source.type.indexOf("StartEvent") === -1
-    //   );
-    //   this.formVisible = this.elementType === "UserTask" || this.elementType === "StartEvent";
-    // },
-    // beforeDestroy() {
-    //   window.bpmnInstances = null;
-    // },
     computedCandidates(hasCandidatesUsers) {
       // console.log(hasCandidatesUsers);
       // this.hasCandidatesUsers = hasCandidatesUsers;

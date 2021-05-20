@@ -55,7 +55,6 @@ export default {
   },
   watch: {
     submitDialogFlag() {
-      console.log(1332323);
       this.dialogVisible = this.submitDialogFlag
     }
   },

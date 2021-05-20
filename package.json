@@ -16,7 +16,7 @@
     "url": "git@github.com:miyuesc/bpmn-process-designer.git"
   },
   "scripts": {
-    "demo": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
   "dependencies": {

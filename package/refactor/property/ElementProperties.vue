@@ -96,7 +96,6 @@ export default {
           const propertiesObject = window.bpmnInstances.moddle.create(`${this.prefix}:Properties`, {
             values: this.bpmnElementPropertyList
           });
-          console.log(propertiesObject);
           this.updateElementExtensions(propertiesObject);
           this.resetAttributesList();
         })

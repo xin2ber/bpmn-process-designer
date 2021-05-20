@@ -1,6 +1,6 @@
 <template>
   <div class="panel-tab__content">
-    <el-table :data="formData.candidates" size="mini" max-height="240" border fit>
+    <el-table :data="formData.candidates" size="mini" max-height="300" border fit>
       <el-table-column label="类型">
         <template slot-scope="scope">
           <el-select v-model="scope.row.type" class="select" placeholder="请选择">

@@ -25,7 +25,7 @@ import mixinPanel from '../../common/mixinPanel'
 import { commonParse, conditionExpressionParse } from '../../common/parseElement'
 
 export default {
-  name : 'FlowCondition',
+  name : 'Condition',
   mixins: [mixinPanel],
   data() {
     return {
@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     updateFlowType(flowType) {
-      console.log(flowType);
       if (flowType === "default") {
         this.updateCondition(null);
         this.updateDefalut(this.element);

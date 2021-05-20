@@ -59,7 +59,6 @@ export default {
       immediate: false,
       deep: true,
       handler(val) {
-        console.log(val);
         this.updateElement();
       }
     }
