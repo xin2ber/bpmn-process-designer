@@ -70,21 +70,21 @@
   </div>
 </template>
 <script>
-import ElementBaseInfo from "./property/ElementBaseInfo";
-import ReceiveTask from "./property/ReceiveTask";
-import ScriptTask from "./property/ScriptTask";
-import UserTask from "./property/UserTask";
-import TaskListeners from "./property/TaskListeners";
+import ElementBaseInfo from "./property/base/ElementBaseInfo";
+import ReceiveTask from "./property/task/ReceiveTask";
+import ScriptTask from "./property/task/ScriptTask";
+import UserTask from "./property/task/UserTask";
 
-import ElementMultiInstance from "./property/ElementMultiInstance";
-import FlowCondition from "./property/FlowCondition";
+import ElementMultiInstance from "./property/multi-instance/ElementMultiInstance";
+import FlowCondition from "./property/flow-condition/FlowCondition";
 // import SignalAndMassage from "./signal-message/SignalAndMessage";
-import ElementListeners from "./property/ElementListeners";
-import ElementProperties from "./property/ElementProperties";
+import ElementListeners from "./property/listeners/ElementListeners";
+import ElementProperties from "./property/properties/ElementProperties";
 // import ElementForm from "./property/form/ElementForm";
-import CandidateUsers from "./property/CandidateUsers";
-import ElementFormUrl from "./property/ElementFormUrl";
-import InOut from "./property/InOut";
+import UserTaskListeners from "./property/listeners/UserTaskListeners";
+import CandidateUsers from "./property/candidateUsers/CandidateUsers";
+import ElementFormUrl from "./property/formUrl/ElementFormUrl";
+import InOut from "./property/inOut/InOut";
 import CallActivity from "./property/CallActivity";
 import { NodeName } from "../../package/process-designer/plugins/translate/zh";
 import showConfig from '../common/showConfig'
@@ -96,6 +96,7 @@ import { ComponentName } from '../common/showConfig'
 export default {
   name: "MyPropertiesPanel",
   components: {
+    UserTaskListeners,
     // ElementForm,
     ElementProperties,
     ElementListeners,
@@ -109,8 +110,7 @@ export default {
     CandidateUsers,
     ElementFormUrl,
     InOut,
-    CallActivity,
-    TaskListeners
+    CallActivity
   },
   componentName: "MyPropertiesPanel",
   props: {

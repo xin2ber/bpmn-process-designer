@@ -129,8 +129,9 @@ export const ComponentName = {
     icon: 'el-icon-share'
   },
   'TaskListeners':{
-    name: '任务监听器',
-    icon: 'el-icon-view'
+    name: '任务监听器'
+    icon: 'el-icon-share'
+
   }
 
 }

@@ -12,7 +12,7 @@ export default {
     formKey: true
   },
   'bpmn:UserTask': {
-    components: ['ElementBaseInfo','ElementFormUrl','UserTask','CandidateUsers','ElementMultiInstance','TaskListeners'],
+    components: ['ElementBaseInfo','ElementFormUrl','UserTask','CandidateUsers','ElementMultiInstance'],
     userType: true,
     assignee: true,
     candidateUsers: true,
@@ -127,10 +127,6 @@ export const ComponentName = {
   'CallActivity':{
     name: '子流程',
     icon: 'el-icon-share'
-  },
-  'TaskListeners':{
-    name: '任务监听器',
-    icon: 'el-icon-view'
   }
 
 }

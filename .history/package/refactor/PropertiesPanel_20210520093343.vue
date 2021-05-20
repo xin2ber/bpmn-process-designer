@@ -74,7 +74,6 @@ import ElementBaseInfo from "./property/ElementBaseInfo";
 import ReceiveTask from "./property/ReceiveTask";
 import ScriptTask from "./property/ScriptTask";
 import UserTask from "./property/UserTask";
-import TaskListeners from "./property/TaskListeners";
 
 import ElementMultiInstance from "./property/ElementMultiInstance";
 import FlowCondition from "./property/FlowCondition";
@@ -82,6 +81,7 @@ import FlowCondition from "./property/FlowCondition";
 import ElementListeners from "./property/ElementListeners";
 import ElementProperties from "./property/ElementProperties";
 // import ElementForm from "./property/form/ElementForm";
+import UserTaskListeners from "./property/UserTaskListeners";
 import CandidateUsers from "./property/CandidateUsers";
 import ElementFormUrl from "./property/ElementFormUrl";
 import InOut from "./property/InOut";
@@ -96,6 +96,7 @@ import { ComponentName } from '../common/showConfig'
 export default {
   name: "MyPropertiesPanel",
   components: {
+    UserTaskListeners,
     // ElementForm,
     ElementProperties,
     ElementListeners,
@@ -109,8 +110,7 @@ export default {
     CandidateUsers,
     ElementFormUrl,
     InOut,
-    CallActivity,
-    TaskListeners
+    CallActivity
   },
   componentName: "MyPropertiesPanel",
   props: {

@@ -130,7 +130,7 @@ export const ComponentName = {
   },
   'TaskListeners':{
     name: '任务监听器',
-    icon: 'el-icon-view'
+    icon: 'el-icon-share'
   }
 
 }

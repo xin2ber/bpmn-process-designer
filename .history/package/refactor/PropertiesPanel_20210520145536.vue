@@ -82,6 +82,7 @@ import FlowCondition from "./property/FlowCondition";
 import ElementListeners from "./property/ElementListeners";
 import ElementProperties from "./property/ElementProperties";
 // import ElementForm from "./property/form/ElementForm";
+import UserTaskListeners from "./property/UserTaskListeners";
 import CandidateUsers from "./property/CandidateUsers";
 import ElementFormUrl from "./property/ElementFormUrl";
 import InOut from "./property/InOut";
@@ -96,6 +97,7 @@ import { ComponentName } from '../common/showConfig'
 export default {
   name: "MyPropertiesPanel",
   components: {
+    UserTaskListeners,
     // ElementForm,
     ElementProperties,
     ElementListeners,
