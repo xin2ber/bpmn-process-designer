@@ -5,9 +5,7 @@ export default {
     versionTag: false,
     documentation:true
   },
-  'bpmn:EndEvent': {
-    components: ['BaseInfo']
-  },
+  'bpmn:EndEvent': {},
   'bpmn:StartEvent': {
     components: ['BaseInfo'],
     initiator: true,
@@ -57,7 +55,7 @@ export default {
     documentation:true
   },
   'bpmn:ManualTask': {
-    components: ['BaseInfo'],
+    components: ['BaseInfo','ManualTask'],
     async: true,
     isForCompensation: true,
     documentation:true

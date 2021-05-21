@@ -9,7 +9,7 @@
             :is="item"
             :element="element"
             :modeler="bpmnModeler"
-            @updateHasValue = "updateHasValue"
+            @updateBadge = "updateHasValue"
             />
           </el-collapse-item>
         </template>
@@ -125,7 +125,6 @@ export default {
   methods: {
     updateHasValue(componentName,has) {
       this.hasValue[componentName] = has;
-      console.log(this.hasValue)
     },
     initModels() {
       // 初始化 modeler 以及其他 moddle

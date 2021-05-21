@@ -13,7 +13,7 @@
         <el-form-item v-if="deployed" label="发布方式：">
           <el-radio-group v-model="options.deployType">
             <el-radio label="create" border size="medium">发布新版本</el-radio>
-            <el-radio label="update" border size="medium">修改当前版本</el-radio>
+            <el-radio label="update" border size="medium">修改发布版本</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item v-if="deployed" label="保存草稿：">

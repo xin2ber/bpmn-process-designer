@@ -4,7 +4,7 @@
     <el-collapse v-model="activeTab">
         <template v-for="(item, key) in showConfig.components">
           <el-collapse-item :key="key" v-if="element" :name="item">
-            <div slot="title" class="panel-tab__title"><i :class="getComponentIcon(item)"></i><el-badge is-dot class="item" :hidden="!hasValue[item]" >{{getComponentName(item)}}</el-badge></div>
+            <div slot="title" class="panel-tab__title"><i :class="getComponentIcon(item)"></i><el-badge is-dot class="item" :hidden="!hasValue[item+element.id]" >{{getComponentName(item)}}</el-badge></div>
             <component
             :is="item"
             :element="element"
@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     updateHasValue(componentName,has) {
-      this.hasValue[componentName] = has;
+      this.hasValue[componentName+this.element.id] = has;
       console.log(this.hasValue)
     },
     initModels() {

@@ -57,7 +57,7 @@ export default {
     documentation:true
   },
   'bpmn:ManualTask': {
-    components: ['BaseInfo'],
+    components: ['BaseInfo','ManualTask'],
     async: true,
     isForCompensation: true,
     documentation:true

@@ -32,6 +32,10 @@ export default {
     mobileInfoUrl: true,
     documentation:true
   },
+  'bpmn:ManualTask': {
+    components: ['BaseInfo'],
+    documentation:true
+  },
   'bpmn:CallActivity': {
     components: ['BaseInfo','InOut','MultiInstance','CallActivity'],
     processInstanceName: true,
@@ -57,7 +61,7 @@ export default {
     documentation:true
   },
   'bpmn:ManualTask': {
-    components: ['BaseInfo'],
+    components: ['BaseInfo','ManualTask'],
     async: true,
     isForCompensation: true,
     documentation:true

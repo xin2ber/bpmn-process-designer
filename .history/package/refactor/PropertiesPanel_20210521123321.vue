@@ -2,14 +2,15 @@
   <div class="process-panel__container" :style="{ width: `${this.width}px` }">
     <div v-if="nodeName" class="node-name">{{ nodeName }}</div>
     <el-collapse v-model="activeTab">
+      
         <template v-for="(item, key) in showConfig.components">
           <el-collapse-item :key="key" v-if="element" :name="item">
-            <div slot="title" class="panel-tab__title"><i :class="getComponentIcon(item)"></i><el-badge is-dot class="item" :hidden="!hasValue[item]" >{{getComponentName(item)}}</el-badge></div>
+            <el-badge is-dot class="item"><div slot="title" class="panel-tab__title"><i :class="getComponentIcon(item)"></i>{{getComponentName(item)}}</div></el-badge>
             <component
             :is="item"
             :element="element"
             :modeler="bpmnModeler"
-            @updateHasValue = "updateHasValue"
+            @updateBadge = "updateBadge"
             />
           </el-collapse-item>
         </template>
@@ -85,7 +86,6 @@ export default {
       elementBusinessObject: {}, // 元素 businessObject 镜像，提供给需要做判断的组件使用
       conditionFormVisible: false, // 流转条件设置
       formVisible: false, // 表单配置
-      hasValue: {},
       hasCandidatesUsers: false
     };
   },
@@ -123,10 +123,6 @@ export default {
     this.initModels();
   },
   methods: {
-    updateHasValue(componentName,has) {
-      this.hasValue[componentName] = has;
-      console.log(this.hasValue)
-    },
     initModels() {
       // 初始化 modeler 以及其他 moddle
       if (!this.bpmnModeler) {

@@ -56,7 +56,7 @@ export default {
   methods: {
     updateHasValue() {
       console.log(this.formData);
-      this.$emit("updateHasValue", "FromUrl",Boolean(this.formData.pcUrl || this.formData.pcInfoUrl || this.formData.mobileUrl || this.formData.mobileInfoUrl))
+      this.$emit("updateHasValue", "FromUrl"+this.element.id,Boolean(this.formData.pcUrl || this.formData.pcInfoUrl || this.formData.mobileUrl || this.formData.mobileInfoUrl))
     }
   }
 };
