@@ -1,6 +1,6 @@
 <template>
   <div class="panel-tab__content">
-    <el-table :data="formData.inOuts" size="mini" max-height="240" border fit>
+    <el-table :data="formData.inOuts" size="mini" max-height="320" border fit>
       <el-table-column label="source">
         <template slot-scope="scope">
           <el-input v-model="scope.row.source" placeholder="请输入" />
@@ -11,7 +11,7 @@
           <el-input v-model="scope.row.target" placeholder="请输入" />
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="90px">
+      <el-table-column label="操作" width="50px">
         <template slot-scope="{ $index }">
           <el-button size="mini" type="text" style="color: #ff4d4f" @click="remove($index)">移除</el-button>
         </template>
