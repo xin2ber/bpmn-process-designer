@@ -7,7 +7,7 @@
         </el-select>
       </el-form-item>
       <el-form-item :label="implementationTypes[implementationType]">
-        <el-input v-model="value" clearable />
+        <el-input v-model="formData.value" clearable />
       </el-form-item>
       <el-form-item label="跳过条件">
         <el-input v-model="formData.skipExpression" />
@@ -26,7 +26,6 @@ export default {
     return {
       formData: {},
       implementationType: 'class',
-      value : '',
       implementationTypes: {
         class: "类",
         expression: "表达式",
@@ -35,8 +34,8 @@ export default {
     };
   },
   watch: {
-    value: function(val) {
-      this.updateVal( this.implementationType,val );
+    'formData.value': function(val) {
+      this.updateVal( this.formData.type,val );
     },
     'formData.skipExpression': function(val) {
       this.updateVal('flowable:skipExpression',val);
@@ -46,26 +45,29 @@ export default {
     this.formData = commonParse(this.element);
     if (this.formData.class) {
       this.implementationType = 'class';
-      this.value = this.formData.class;
+      this.formData.value = this.formData.class;
     } else if (this.formData.expression) {
       this.implementationType = 'expression';
-      this.value = this.formData.expression
+      this.formData.value = this.formData.expression
     } else if (this.formData.delegateExpression) {
       this.implementationType = 'delegateExpression';
-      this.value = this.formData.delegateExpression;
+      this.formData.value = this.formData.delegateExpression;
     } else {
       this.implementationType = 'class';
     }
   },
   methods: {
-    changeType(type) {
-      this.updateVal( type,this.value);
-      let index;
-      for (index in this.implementationTypes) {
-        if(index !== type) {
-          this.updateVal( index,null );
-        }
-      }
+    changeType(val) {
+      // console.log(this.formData.type)
+      // this.updateVal( val,this.formData.value);
+      // console.log(this.formData)
+      // let index;
+      // for (index in this.implementationTypes) {
+      //   console.log(index);
+      //   if(index !== val) {
+      //     this.updateVal( index,null );
+      //   }
+      // }
     }
   }
 };

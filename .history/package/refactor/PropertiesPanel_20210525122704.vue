@@ -9,6 +9,7 @@
             :is="item"
             :element="element"
             :modeler="bpmnModeler"
+            @updateHasValue = "updateHasValue"
             />
           </el-collapse-item>
         </template>

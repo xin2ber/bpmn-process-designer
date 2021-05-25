@@ -3,6 +3,7 @@
     <el-form size="mini" label-width="90px" @submit.native.prevent>
       <el-form-item label="类型">
         <el-select v-model="type" @change="changeType">
+          <!--bpmn:MultiInstanceLoopCharacteristics-->
           <el-option label="并行" value="ParallelMultiInstance" />
           <el-option label="串行" value="SequentialMultiInstance" />
           <el-option label="无" value="Null" />

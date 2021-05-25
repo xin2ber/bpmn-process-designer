@@ -58,11 +58,11 @@ export default {
     }
   },
   methods: {
-    changeType(type) {
-      this.updateVal( type,this.value);
+    changeType(val) {
+      this.updateVal( val,this.value);
       let index;
       for (index in this.implementationTypes) {
-        if(index !== type) {
+        if(index !== val) {
           this.updateVal( index,null );
         }
       }

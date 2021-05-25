@@ -58,14 +58,17 @@ export default {
     }
   },
   methods: {
-    changeType(type) {
-      this.updateVal( type,this.value);
-      let index;
-      for (index in this.implementationTypes) {
-        if(index !== type) {
-          this.updateVal( index,null );
-        }
-      }
+    changeType(val) {
+      // console.log(this.formData.type)
+      // this.updateVal( val,this.formData.value);
+      // console.log(this.formData)
+      // let index;
+      // for (index in this.implementationTypes) {
+      //   console.log(index);
+      //   if(index !== val) {
+      //     this.updateVal( index,null );
+      //   }
+      // }
     }
   }
 };

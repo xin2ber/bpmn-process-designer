@@ -7,7 +7,7 @@
         </el-select>
       </el-form-item>
       <el-form-item :label="implementationTypes[implementationType]">
-        <el-input v-model="value" clearable />
+        <el-input v-model="formData.value" clearable />
       </el-form-item>
       <el-form-item label="跳过条件">
         <el-input v-model="formData.skipExpression" />
@@ -58,14 +58,17 @@ export default {
     }
   },
   methods: {
-    changeType(type) {
-      this.updateVal( type,this.value);
-      let index;
-      for (index in this.implementationTypes) {
-        if(index !== type) {
-          this.updateVal( index,null );
-        }
-      }
+    changeType(val) {
+      // console.log(this.formData.type)
+      // this.updateVal( val,this.formData.value);
+      // console.log(this.formData)
+      // let index;
+      // for (index in this.implementationTypes) {
+      //   console.log(index);
+      //   if(index !== val) {
+      //     this.updateVal( index,null );
+      //   }
+      // }
     }
   }
 };
