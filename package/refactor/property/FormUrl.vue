@@ -41,23 +41,10 @@ export default {
     },
     'formData.mobileInfoUrl': function(val) {
       this.updateProperties({ mobileInfoUrl: val || null})
-    },
-    formData: {
-      immediate: true,
-      deep: true,
-      handler: function(val) {
-        this.updateHasValue();
-      }
     }
   },
   created() {
     this.formData = commonParse(this.element)
-  },
-  methods: {
-    updateHasValue() {
-      console.log(this.formData);
-      this.$emit("updateHasValue", "FromUrl",Boolean(this.formData.pcUrl || this.formData.pcInfoUrl || this.formData.mobileUrl || this.formData.mobileInfoUrl))
-    }
   }
 };
 </script>
