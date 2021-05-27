@@ -39,7 +39,8 @@ export default {
     return {
       formData: {},
       rules:{
-        id :[{required: true, message: '请输入', trigger: 'blur'}]
+        id :[{required: true, message: '请输入', trigger: 'blur'}],
+        name :[{required: true, message: '请输入', trigger: 'blur'}]
       },
       idEditDisabled: false,
       categorys: []

@@ -5,7 +5,7 @@
         <el-input v-model="formData.id" :disabled="idEditDisabled" />
       </el-form-item>
       <el-form-item label="名称" prop="name">
-        <el-input v-model="formData.name" />
+        <el-input v-model="formData.name" clearable />
       </el-form-item>
         <el-form-item label="版本" v-if="showConfig.versionTag">
           <el-input v-model="formData.versionTag" clearable/>
@@ -39,7 +39,8 @@ export default {
     return {
       formData: {},
       rules:{
-        id :[{required: true, message: '请输入', trigger: 'blur'}]
+        id :[{required: true, message: '请输入', trigger: 'blur'}],
+        name :[{required: true, message: '请输入', trigger: 'blur'}]
       },
       idEditDisabled: false,
       categorys: []

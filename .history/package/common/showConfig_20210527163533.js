@@ -88,13 +88,13 @@ export default {
     components: ['BaseInfo','Condition','ExecutionListener']
   },
   'bpmn:ExclusiveGateway': {
-    components: ['BaseInfo','ExecutionListener']
+    components: ['BaseInfo']
   },
   'bpmn:InclusiveGateway': {
-    components: ['BaseInfo','ExecutionListener']
+    components: ['BaseInfo']
   },
   'bpmn:ParallelGateway': {
-    components: ['BaseInfo','ExecutionListener']
+    components: ['BaseInfo']
   },
 }
 

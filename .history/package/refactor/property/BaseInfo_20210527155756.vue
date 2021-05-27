@@ -1,11 +1,11 @@
 <template>
   <div class="panel-tab__content">
     <el-form size="mini" label-width="90px" ref="form" :model="formData" :rules="rules" @submit.native.prevent>
-      <el-form-item label="ID" prop="id">
+      <el-form-item label="ID">
         <el-input v-model="formData.id" :disabled="idEditDisabled" />
       </el-form-item>
-      <el-form-item label="名称" prop="name">
-        <el-input v-model="formData.name" />
+      <el-form-item label="名称">
+        <el-input v-model="formData.name" clearable />
       </el-form-item>
         <el-form-item label="版本" v-if="showConfig.versionTag">
           <el-input v-model="formData.versionTag" clearable/>
@@ -39,7 +39,8 @@ export default {
     return {
       formData: {},
       rules:{
-        id :[{required: true, message: '请输入', trigger: 'blur'}]
+         [`formData.id`] :[{required: true, message: '请输入', trigger: 'blur'}],
+         [`formData.name`] :[{required: true, message: '请输入', trigger: 'blur'}]
       },
       idEditDisabled: false,
       categorys: []

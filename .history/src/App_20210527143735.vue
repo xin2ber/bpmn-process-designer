@@ -21,6 +21,8 @@ import CustomRenderer from "@/modules/custom-renderer";
 import CustomContentPadProvider from "../package/process-designer/plugins/content-pad";
 // 自定义左侧菜单（修改 默认任务 为 用户任务）
 import CustomPaletteProvider from "../package/process-designer/plugins/palette";
+// 自定义侧边栏
+// import MyProcessPanel from "../package/process-panel/ProcessPanel";
 
 export default {
   name: "App",
@@ -46,7 +48,7 @@ export default {
   },
   methods: {
     submitSuccess() {
-      returnModelTable();
+      // returnModelTable();
     },
     initModeler(modeler) {
       setTimeout(() => {

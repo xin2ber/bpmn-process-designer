@@ -41,7 +41,7 @@ export default {
     documentation:true
   },
   'bpmn:ServiceTask': {
-    components: ['BaseInfo','ServiceTask','TaskListener','ExecutionListener'],
+    components: ['BaseInfo','ServiceTask','TaskListener'],
     async: true,
     skipExpression: true,
     isForCompensation: true,
@@ -85,17 +85,8 @@ export default {
     documentation:true
   },
   'bpmn:SequenceFlow': {
-    components: ['BaseInfo','Condition','ExecutionListener']
-  },
-  'bpmn:ExclusiveGateway': {
-    components: ['BaseInfo','ExecutionListener']
-  },
-  'bpmn:InclusiveGateway': {
-    components: ['BaseInfo','ExecutionListener']
-  },
-  'bpmn:ParallelGateway': {
-    components: ['BaseInfo','ExecutionListener']
-  },
+    components: ['BaseInfo','Condition']
+  }
 }
 
 export const ComponentName = {

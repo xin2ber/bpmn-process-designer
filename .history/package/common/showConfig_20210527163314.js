@@ -85,17 +85,11 @@ export default {
     documentation:true
   },
   'bpmn:SequenceFlow': {
-    components: ['BaseInfo','Condition','ExecutionListener']
+    components: ['BaseInfo','Condition']
   },
   'bpmn:ExclusiveGateway': {
-    components: ['BaseInfo','ExecutionListener']
-  },
-  'bpmn:InclusiveGateway': {
-    components: ['BaseInfo','ExecutionListener']
-  },
-  'bpmn:ParallelGateway': {
-    components: ['BaseInfo','ExecutionListener']
-  },
+    components: ['BaseInfo']
+  }
 }
 
 export const ComponentName = {

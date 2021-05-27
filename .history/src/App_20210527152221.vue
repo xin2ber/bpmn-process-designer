@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     submitSuccess() {
-      returnModelTable();
+      // returnModelTable();
     },
     initModeler(modeler) {
       setTimeout(() => {
