@@ -5,15 +5,13 @@
       <template v-if="!$slots['control-header']">
         <div style="display: flex; padding: 10px 0px; justify-content: space-between;">
           <div style="margin-left: 10px; display:inline-block;">
-            <el-button-group key="file-control">
+            <el-button-group key="scale-control">
               <el-tooltip effect="light" content="加载文件" placement="bottom">
                 <el-button :size="headerButtonSize" icon="el-icon-folder-opened" @click="$refs.refFile.click()" />
               </el-tooltip>
               <el-tooltip effect="light" content="新建">
                 <el-button :size="headerButtonSize" icon="el-icon-refresh" @click="processRestart" />
               </el-tooltip>
-            </el-button-group>
-            <el-button-group key="scale-control">
               <el-tooltip effect="light" content="自适应屏幕">
                 <el-button :size="headerButtonSize" icon="el-icon-rank" @click="processReZoom()" />
               </el-tooltip>
