@@ -36,10 +36,7 @@
     <div class="element-drawer__button">
       <el-button size="mini" type="primary" icon="el-icon-plus" @click="add">添加监听器</el-button>
     </div>
-
-    <!-- 监听器 编辑/创建 部分 -->
-      <listener-param v-if="showParamDialog" :value="formData.listeners[nowIndex].params" @close="finishConfigParam" />
-
+    <listener-param v-if="showParamDialog" :value="formData.listeners[nowIndex].params" @close="finishConfigParam" />
   </div>
 </template>
 <script>

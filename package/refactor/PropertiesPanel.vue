@@ -17,17 +17,12 @@
 </template>
 <script>
 import BaseInfo from "./property/BaseInfo";
-import ReceiveTask from "./property/ReceiveTask";
-import ScriptTask from "./property/ScriptTask";
 import UserTask from "./property/UserTask";
 import ServiceTask from "./property/ServiceTask";
 import TaskListener from "./property/TaskListener";
 import ExecutionListener from "./property/ExecutionListener";
-
 import MultiInstance from "./property/MultiInstance.vue";
 import Condition from "./property/Condition";
-import ElementListeners from "./property/ElementListeners";
-import ElementProperties from "./property/ElementProperties";
 import CandidateUsers from "./property/CandidateUsers";
 import FormUrl from "./property/FormUrl";
 import InOut from "./property/InOut";
@@ -42,12 +37,8 @@ import { ComponentName } from '../common/showConfig'
 export default {
   name: "MyPropertiesPanel",
   components: {
-    ElementProperties,
-    ElementListeners,
     Condition,
     MultiInstance,
-    ReceiveTask,
-    ScriptTask,
     ServiceTask,
     UserTask,
     BaseInfo,

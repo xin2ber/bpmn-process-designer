@@ -29,14 +29,11 @@ export default {
     return {
       modeler: null,
       reloadIndex: 0,
-      controlDrawerVisible: false,
       translationsSelf: translations,
       controlForm: {
         processId: "",
         processName: "",
         simulation: true,
-        labelEditing: false,
-        labelVisible: false,
         prefix: "flowable",
         headerButtonSize: "mini",
         additionalModel: [CustomContentPadProvider, CustomPaletteProvider]
@@ -46,7 +43,7 @@ export default {
   },
   methods: {
     submitSuccess() {
-      returnModelTable();
+      // returnModelTable();
     },
     initModeler(modeler) {
       setTimeout(() => {
