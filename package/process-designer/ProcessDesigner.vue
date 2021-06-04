@@ -87,7 +87,7 @@
     </el-dialog>
     <submit-dialog
       :submitDialogFlag.sync="submitDialogFlag"
-      :deployed="Boolean(processDefinitionId)"
+      :deployed="Boolean(processDefinitionId) || Boolean(modelId)"
       @submit="submit"
     />
   </div>
