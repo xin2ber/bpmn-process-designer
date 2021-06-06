@@ -89,7 +89,7 @@ export default {
   },
   mounted() {
     this.formData.listeners = this.element.businessObject.extensionElements?.values
-      .filter(item => item.$type === `flowable:${this.type}`)
+      .filter(item => item.$type === `flowable:${this.type}` && item.delegateExpression !== '${customTaskListener}')
       .map(item => {
         let type
         if ('class' in item) type = 'class'
@@ -127,12 +127,13 @@ export default {
       }
       this.showParamDialog = true
     },
-    finishConfigParam(param) {
+    finishConfigParam(params) {
       this.showParamDialog = false
       // hack 数量不更新问题
       const cache = this.formData.listeners[this.nowIndex]
-      cache.params = param
-      this.$set(this.formData.listeners[this.nowIndex], this.nowIndex, cache)
+      cache.params = params
+      this.$set(this.formData.listeners, this.nowIndex, cache)
+      console.log(this.formData.listeners)
       this.nowIndex = null
     },
     updateElement() {
@@ -142,11 +143,11 @@ export default {
           extensionElements = this.modeler.get('moddle').create('bpmn:ExtensionElements')
         }
         // 清除旧值
-        extensionElements.values = extensionElements.values?.filter(item => item.$type !== `flowable:${this.type}`) ?? []
+        extensionElements.values = extensionElements.values?.filter(item => item.$type !== `flowable:${this.type}` || item.delegateExpression === '${customTaskListener}') ?? []
         this.formData.listeners.forEach(item => {
-          const taskListener = this.modeler.get('moddle').create(`flowable:${this.type}`)
-          taskListener['event'] = item.event
-          taskListener[item.type] = item.className
+          const listener = this.modeler.get('moddle').create(`flowable:${this.type}`)
+          listener['event'] = item.event
+          listener[item.type] = item.className
           if (item.params && item.params.length) {
             item.params.forEach(field => {
               const fieldElement = this.modeler.get('moddle').create('flowable:Field')
@@ -155,16 +156,17 @@ export default {
               // 注意：flowable.json 中定义的string和expression类为小写，不然会和原生的String类冲突，此处为hack
               // const valueElement = this.modeler.get('moddle').create(`flowable:${field.type}`, { body: field.value })
               // fieldElement[field.type] = valueElement
-              taskListener.get('fields').push(fieldElement)
+              listener.get('fields').push(fieldElement)
             })
           }
-          extensionElements.get('values').push(taskListener)
+          extensionElements.get('values').push(listener)
         })
+        console.log(extensionElements)
         this.updateProperties({ extensionElements: extensionElements })
       } else {
         const extensionElements = this.element.businessObject[`extensionElements`]
         if (extensionElements) {
-          extensionElements.values = extensionElements.values?.filter(item => item.$type !== `flowable:${this.type}`) ?? []
+          extensionElements.values = extensionElements.values?.filter(item => item.$type !== `flowable:${this.type}`  || item.delegateExpression === '${customTaskListener}') ?? []
         }
       }
     }
