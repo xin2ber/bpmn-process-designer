@@ -1,6 +1,7 @@
 export default {
   'bpmn:Process': {
-    components: ['BaseInfo','FormUrl'],
+    components: ['BaseInfo','FormUrl','ExecutionListener'],
+    userType: true,
     processCategory: true,
     versionTag: false,
     documentation:true
@@ -14,7 +15,7 @@ export default {
     formKey: true
   },
   'bpmn:UserTask': {
-    components: ['BaseInfo','FormUrl','UserTask','CandidateUsers','MultiInstance','TaskListener','ExecutionListener'],
+    components: ['BaseInfo','FormUrl','UserTask','CandidateUsers','MultiInstance','TaskListener','ExecutionListener','Message'],
     userType: true,
     assignee: true,
     candidateUsers: true,
@@ -145,6 +146,10 @@ export const ComponentName = {
   },
   'ExecutionListener':{
     name: '执行监听器',
+    icon: 'el-icon-message-solid'
+  },
+  'Message':{
+    name: '通知消息',
     icon: 'el-icon-message-solid'
   }
 

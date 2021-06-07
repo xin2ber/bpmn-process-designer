@@ -21,7 +21,7 @@ import UserTask from "./property/UserTask";
 import ServiceTask from "./property/ServiceTask";
 import TaskListener from "./property/TaskListener";
 import ExecutionListener from "./property/ExecutionListener";
-import MultiInstance from "./property/MultiInstance.vue";
+import MultiInstance from "./property/MultiInstance";
 import Condition from "./property/Condition";
 import CandidateUsers from "./property/CandidateUsers";
 import FormUrl from "./property/FormUrl";
@@ -30,6 +30,7 @@ import CallActivity from "./property/CallActivity";
 import { NodeName } from "../../package/process-designer/plugins/translate/zh";
 import showConfig from '../common/showConfig'
 import { ComponentName } from '../common/showConfig'
+import Message from './property/Message'
 
 /**
  * 侧边栏
@@ -47,7 +48,8 @@ export default {
     InOut,
     CallActivity,
     TaskListener,
-    ExecutionListener
+    ExecutionListener,
+    Message
   },
   componentName: "MyPropertiesPanel",
   props: {
