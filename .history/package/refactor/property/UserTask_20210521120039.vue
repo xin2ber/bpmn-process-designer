@@ -39,11 +39,7 @@ export default {
       this.updateVal( 'priority',val )
     },
     'formData.skipExpression': function(val) {
-        if(val) {
-          this.updateVal('flowable:skipExpression',val);
-        } else {
-          delete this.element.businessObject.$attrs['flowable:skipExpression']
-        }
+      this.updateVal('flowable:skipExpression',val)
     },
     'formData.completeAutoExpression': function(val) {
       this.updateVal('flowable:completeAutoExpression',val)

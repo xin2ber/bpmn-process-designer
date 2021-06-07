@@ -39,11 +39,7 @@ export default {
       this.updateCondition(val)
     },
     'formData.skipExpression': function(val) {
-        if(val) {
-          this.updateVal('flowable:skipExpression',val);
-        } else {
-          delete this.element.businessObject.$attrs['flowable:skipExpression']
-        }
+      this.updateVal('flowable:skipExpression',val)
     },
     'element.businessObject.conditionExpression': function(val) {
       console.log(val)

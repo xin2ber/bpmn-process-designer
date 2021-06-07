@@ -39,11 +39,7 @@ export default {
       this.updateCondition(val)
     },
     'formData.skipExpression': function(val) {
-        if(val) {
-          this.updateVal('flowable:skipExpression',val);
-        } else {
-          delete this.element.businessObject.$attrs['flowable:skipExpression']
-        }
+      this.updateVal('flowable:skipExpression',val)
     },
     'element.businessObject.conditionExpression': function(val) {
       console.log(val)
@@ -68,21 +64,18 @@ export default {
       if (flowType === "default") {
         this.updateCondition(null);
         this.updateDefalut(this.element);
-        delete this.element.businessObject.$attrs['flowable:skipExpression']
+        this.updateVal('flowable:skipExpression',null)
       }
       else if (flowType === "condition") {
-        if(this.formData.skipExpression) {
-          this.updateVal('flowable:skipExpression',this.formData.skipExpression);
-        } else {
-          delete this.element.businessObject.$attrs['flowable:skipExpression']
-        }
+        console.log(this.formData.skipExpression);
+        this.updateVal('flowable:skipExpression',this.formData.skipExpression ?? null);
         this.updateCondition(this.formData.conditionExpression);
         this.updateDefalut(null);
       }
       else if(flowType === "normal") {
         this.updateCondition(null);
         this.updateDefalut(null);
-        delete this.element.businessObject.$attrs['flowable:skipExpression']
+        this.updateVal('flowable:skipExpression',null);
       }
     },
 
