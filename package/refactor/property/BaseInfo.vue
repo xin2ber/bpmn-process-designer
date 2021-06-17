@@ -70,13 +70,15 @@ export default {
     }
   },
   created() {
-    this.idEditDisabled =this.element.type === 'bpmn:Process'&& (Boolean(document.getElementById('modelId').value) || Boolean(document.getElementById('processDefinitionId').value));
+    this.idEditDisabled = this.element.type === 'bpmn:Process' && (Boolean(document.getElementById('modelId').value) || Boolean(document.getElementById('processDefinitionId').value));
     this.formData = commonParse(this.element);
   },
   mounted() {
-    getCategoryList().then(resp => {
-      this.categorys = resp
-    })
+    if(this.element.type === 'bpmn:Process') {
+      getCategoryList().then(resp => {
+        this.categorys = resp
+      })
+    }
   }
 };
 
