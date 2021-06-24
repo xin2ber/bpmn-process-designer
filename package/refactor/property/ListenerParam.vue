@@ -1,5 +1,5 @@
 <template>
-    <el-drawer :visible.sync="showParamDialog" title="任务监听器" size="500px" append-to-body destroy-on-close @closed="$emit('close', formData.paramList)">
+    <el-drawer :visible.sync="showParamDialog" title="监听器参数" size="500px" append-to-body destroy-on-close @closed="$emit('close', formData.paramList)">
       <div class="panel-tab__content">
         <el-table :data="formData.paramList" size="mini" max-height="800" border fit>
           <el-table-column label="类型">
