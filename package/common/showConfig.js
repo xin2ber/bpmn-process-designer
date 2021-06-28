@@ -1,16 +1,16 @@
 export default {
   'bpmn:Process': {
-    components: ['BaseInfo','FormUrl','ExecutionListener'],
+    components: ['BaseInfo','FormUrl','ExecutionListener','Message'],
     userType: true,
     processCategory: true,
     versionTag: false,
     documentation:true
   },
   'bpmn:EndEvent': {
-    components: ['BaseInfo']
+    components: ['BaseInfo','ExecutionListener'],
   },
   'bpmn:StartEvent': {
-    components: ['BaseInfo'],
+    components: ['BaseInfo','ExecutionListener'],
     initiator: true,
     formKey: true
   },
@@ -34,7 +34,7 @@ export default {
     documentation:true
   },
   'bpmn:CallActivity': {
-    components: ['BaseInfo','InOut','MultiInstance','CallActivity'],
+    components: ['BaseInfo','InOut','MultiInstance','CallActivity','ExecutionListener'],
     processInstanceName: true,
     calledElement: true,
     inOutParameters: true,
@@ -152,5 +152,4 @@ export const ComponentName = {
     name: '通知消息',
     icon: 'el-icon-message-solid'
   }
-
 }

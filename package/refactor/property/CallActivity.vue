@@ -9,7 +9,10 @@
         <el-input v-model="formData.businessKey" clearable/>
       </el-form-item>
       <el-form-item label="实例名称">
-        <el-input v-model="formData.processInstanceName" clearable/>
+        <el-input v-model="formData.processInstanceName" clearable />
+      </el-form-item>
+      <el-form-item label="继承变量">
+        <el-switch v-model="formData.inheritVariables" active-value="true" inactive-value="false" />
       </el-form-item>
     </el-form>
   </div>
@@ -43,13 +46,17 @@ export default {
       } else {
         delete this.element.businessObject.$attrs[`flowable:processInstanceName`]
       }
+    },
+    'formData.inheritVariables': function(val) {
+      if (val === 'true') {
+        this.updateVal('flowable:inheritVariables',val)
+      } else {
+        delete this.element.businessObject.$attrs[`flowable:inheritVariables`]
+      }
     }
   },
   created() {
     this.formData = commonParse(this.element)
   }
 };
-
-
-
 </script>
