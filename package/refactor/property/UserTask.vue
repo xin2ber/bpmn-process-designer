@@ -1,6 +1,6 @@
 <template>
   <div class="panel-tab__content">
-    <el-form size="mini" label-width="90px" @submit.native.prevent>
+    <el-form size="mini" label-width="81px" @submit.native.prevent>
       <el-form-item label="到期时间">
         <el-input v-model="formData.dueDate" clearable />
       </el-form-item>

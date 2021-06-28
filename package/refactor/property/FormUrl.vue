@@ -1,6 +1,6 @@
 <template>
   <div class="panel-tab__content">
-    <el-form size="mini" label-width="105px" @submit.native.prevent>
+    <el-form size="mini" label-width="82px" @submit.native.prevent>
       <el-form-item label="PC端">
         <el-input v-model="formData.pcUrl" clearable/>
       </el-form-item>

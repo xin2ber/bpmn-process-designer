@@ -1,6 +1,6 @@
 <template>
   <div class="panel-tab__content">
-    <el-form size="mini" label-width="90px" @submit.native.prevent>
+    <el-form size="mini" label-width="81px" @submit.native.prevent>
 
       <el-form-item label="调用流程">
         <el-input v-model="formData.calledElement" clearable />

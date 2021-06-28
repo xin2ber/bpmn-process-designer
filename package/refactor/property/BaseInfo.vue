@@ -1,6 +1,6 @@
 <template>
   <div class="panel-tab__content">
-    <el-form size="mini" label-width="90px" ref="form" :model="formData" :rules="rules" @submit.native.prevent>
+    <el-form size="mini" label-width="50px" ref="form" :model="formData" :rules="rules" @submit.native.prevent>
       <el-form-item label="ID" prop="id">
         <el-input v-model="formData.id" :disabled="idEditDisabled" />
       </el-form-item>
